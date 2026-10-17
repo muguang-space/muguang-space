@@ -229,7 +229,7 @@
             margin-bottom: 0;
         }
 
-        /* 三大核心優勢（已移除結構安全項） */
+        /* 三大核心優勢 */
         .advantages-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -443,7 +443,7 @@
             color: var(--text-muted);
         }
 
-        /* 聯絡我們 */
+        /* 聯絡我們與表單區塊 */
         .contact-container {
             background: var(--white);
             border-radius: 16px;
@@ -452,7 +452,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-            align-items: center;
+            align-items: start;
             border: 1px solid rgba(0, 0, 0, 0.03);
         }
 
@@ -477,6 +477,21 @@
             font-weight: 500;
         }
 
+        .form-wrapper {
+            width: 100%;
+            height: 600px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: #fff;
+        }
+
+        .form-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         /* 頁尾 */
         footer {
             background-color: var(--primary-color);
@@ -487,8 +502,17 @@
         }
 
         /* RWD 響應式調整 */
+        @media (max-width: 900px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            .form-wrapper {
+                height: 550px;
+            }
+        }
+
         @media (max-width: 768px) {
-            .about-grid, .contact-container {
+            .about-grid {
                 grid-template-columns: 1fr;
             }
             .hero h1 {
@@ -527,7 +551,7 @@
         </div>
     </section>
 
-    <!-- 關於我們區塊（右側改放 extra-living-kitchen 圖片） -->
+    <!-- 關於我們區塊（已修正圖片路徑為 images/extra-living-kitchen.jpg） -->
     <section id="about">
         <div class="about-grid">
             <div class="about-content">
@@ -548,12 +572,12 @@
                 </div>
             </div>
             <div class="about-image">
-                <img src="index.files/extra-living-kitchen.jpg" alt="沐光方寸設計實景" onclick="openModal(this.src)" style="cursor: pointer;">
+                <img src="images/extra-living-kitchen.jpg" alt="沐光方寸設計實景" onclick="openModal(this.src)" style="cursor: pointer;">
             </div>
         </div>
     </section>
 
-    <!-- 三大核心優勢區塊（已移除結構安全與基礎工程項目） -->
+    <!-- 三大核心優勢區塊 -->
     <section id="advantages">
         <div class="section-header">
             <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem;">CORE ADVANTAGES</div>
@@ -582,7 +606,7 @@
         </div>
     </section>
 
-    <!-- 空間作品展示區塊（精準對應所有圖片與多視角房型） -->
+    <!-- 空間作品展示區塊 -->
     <section id="portfolio">
         <div class="section-header">
             <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem;">RENOVATION PORTFOLIO</div>
@@ -591,7 +615,7 @@
         </div>
         <div class="portfolio-grid">
 
-            <!-- 1. 單獨廚房（image009.jpg 與 image011.jpg 雙視角） -->
+            <!-- 1. 單獨廚房（index.files/image009.jpg 與 image011.jpg 雙視角） -->
             <div class="portfolio-card">
                 <div class="img-container" onclick="openModal(document.getElementById('kit-main-img').src)">
                     <img id="kit-main-img" class="main-img" src="index.files/image009.jpg" alt="俐落明亮 U 型獨立廚房">
@@ -608,7 +632,7 @@
                 </div>
             </div>
 
-            <!-- 2. 中島廚房與開放式餐廚客廳（image002.jpg 與 image007.jpg 雙視角） -->
+            <!-- 2. 中島廚房與開放式餐廚客廳（index.files/image002.jpg 與 image007.jpg 雙視角） -->
             <div class="portfolio-card">
                 <div class="img-container" onclick="openModal(document.getElementById('openkit-main-img').src)">
                     <img id="openkit-main-img" class="main-img" src="index.files/image002.jpg" alt="開放餐廚與中島客廳空間">
@@ -625,7 +649,7 @@
                 </div>
             </div>
 
-            <!-- 3. 大理石紋電視牆與多功能收納（image004.jpg 與 image005.jpg 雙視角） -->
+            <!-- 3. 大理石紋電視牆與多功能收納（images/image004.jpg 與 image005.jpg 雙視角） -->
             <div class="portfolio-card">
                 <div class="img-container" onclick="openModal(document.getElementById('tv-main-img').src)">
                     <img id="tv-main-img" class="main-img" src="images/image004.jpg" alt="大理石紋電視牆與多功能收納">
@@ -642,15 +666,15 @@
                 </div>
             </div>
 
-            <!-- 4. 主臥室房型 A（bedroom-01 與 bedroom-02 雙視角） -->
+            <!-- 4. 主臥室房型 A（images/bedroom-01 與 bedroom-02 雙視角） -->
             <div class="portfolio-card">
                 <div class="img-container" onclick="openModal(document.getElementById('bed1-main-img').src)">
-                    <img id="bed1-main-img" class="main-img" src="index.files/bedroom-01.jpg" alt="現代奶咖風明亮主臥">
+                    <img id="bed1-main-img" class="main-img" src="images/bedroom-01.jpg" alt="現代奶咖風明亮主臥">
                     <div class="img-overlay">🔍 點擊放大觀看細節</div>
                 </div>
                 <div class="thumb-list">
-                    <img src="index.files/bedroom-01.jpg" class="active" onclick="switchImage('bed1-main-img', this)" title="視角一">
-                    <img src="index.files/bedroom-02.jpg" onclick="switchImage('bed1-main-img', this)" title="視角二">
+                    <img src="images/bedroom-01.jpg" class="active" onclick="switchImage('bed1-main-img', this)" title="視角一">
+                    <img src="images/bedroom-02.jpg" onclick="switchImage('bed1-main-img', this)" title="視角二">
                 </div>
                 <div class="portfolio-info">
                     <span class="portfolio-category">主臥室空間</span>
@@ -659,15 +683,15 @@
                 </div>
             </div>
 
-            <!-- 5. 主臥室房型 B（bedroom-03 與 bedroom-04 雙視角） -->
+            <!-- 5. 主臥室房型 B（images/bedroom-03 與 bedroom-04 雙視角） -->
             <div class="portfolio-card">
                 <div class="img-container" onclick="openModal(document.getElementById('bed2-main-img').src)">
-                    <img id="bed2-main-img" class="main-img" src="index.files/bedroom-03.jpg" alt="深木紋奢華靜謐主臥">
+                    <img id="bed2-main-img" class="main-img" src="images/bedroom-03.jpg" alt="深木紋奢華靜謐主臥">
                     <div class="img-overlay">🔍 點擊放大觀看細節</div>
                 </div>
                 <div class="thumb-list">
-                    <img src="index.files/bedroom-03.jpg" class="active" onclick="switchImage('bed2-main-img', this)" title="視角一">
-                    <img src="index.files/bedroom-04.jpg" onclick="switchImage('bed2-main-img', this)" title="視角二">
+                    <img src="images/bedroom-03.jpg" class="active" onclick="switchImage('bed2-main-img', this)" title="視角一">
+                    <img src="images/bedroom-04.jpg" onclick="switchImage('bed2-main-img', this)" title="視角二">
                 </div>
                 <div class="portfolio-info">
                     <span class="portfolio-category">主臥室空間</span>
@@ -726,13 +750,13 @@
         </div>
     </section>
 
-    <!-- 預約諮詢與聯絡區塊 -->
+    <!-- 預約諮詢與聯絡表單嵌入區塊 -->
     <section id="contact">
         <div class="contact-container">
             <div class="contact-info">
                 <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">BOOK A CONSULTATION</div>
                 <h2>開啟您的老屋與新宅煥新之旅</h2>
-                <p style="color: var(--text-muted); margin-bottom: 25px;">歡迎聯繫我們，安排現場丈量與需求討論。</p>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">歡迎聯繫我們，直接於下方填寫表單或透過 LINE 安排現場丈量。</p>
                 
                 <div class="contact-detail-item">
                     <strong>營業項目</strong>
@@ -750,9 +774,14 @@
                     <strong>營業時間</strong>
                     <span>週一至週六 09:00 - 18:00 (預約制)</span>
                 </div>
+                <div style="margin-top: 25px;">
+                    <a href="https://line.me/ti/p/~coolbear761015" target="_blank" class="btn-primary" style="padding: 12px 28px; font-size: 1rem; display: inline-block;">點此加 LINE 諮詢</a>
+                </div>
             </div>
-            <div style="text-align: center;">
-                <a href="https://line.me/ti/p/~coolbear761015" target="_blank" class="btn-primary" style="padding: 15px 35px; font-size: 1.1rem; display: inline-block;">點此加 LINE 立即預約諮詢</a>
+
+            <!-- 嵌入 Google 表單 (免跳轉畫面) -->
+            <div class="form-wrapper">
+                <iframe src="https://forms.gle/e5HkUan47CKkWNYR9" title="客戶資料表單填寫">載入中…</iframe>
             </div>
         </div>
     </section>
