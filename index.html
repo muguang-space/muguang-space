@@ -90,20 +90,21 @@
             background-color: var(--accent-color);
         }
 
-        /* Hero 主視覺區塊 */
-.hero {
-    position: relative;
-    padding: 140px 5% 120px;
-    text-align: center;
-    color: #FFFFFF;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), urlurl('images/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-        .sub-tag {
+        /* Hero 主視覺區塊（帶背景圖與半透明遮罩） */
+        .hero {
+            position: relative;
+            padding: 140px 5% 120px;
+            text-align: center;
+            color: #FFFFFF;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero .sub-tag {
+            color: #E6D5C3;
             display: inline-block;
-            color: var(--accent-color);
             font-weight: 600;
             letter-spacing: 2px;
             font-size: 0.85rem;
@@ -112,17 +113,20 @@
         }
 
         .hero h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 700;
             line-height: 1.3;
             margin-bottom: 20px;
-            color: var(--primary-color);
+            color: #FFFFFF;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
         }
 
         .hero p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 35px;
+            font-size: 1.15rem;
+            color: #F0EDE6;
+            max-width: 750px;
+            margin: 0 auto 35px auto;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
         }
 
         .hero-btns {
@@ -152,7 +156,7 @@
         }
 
         .btn-secondary:hover {
-            background-color: var(--accent-light);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         /* 通用 Section 樣式 */
@@ -418,7 +422,7 @@
                 grid-template-columns: 1fr;
             }
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             nav {
                 display: none;
@@ -442,22 +446,22 @@
         </nav>
     </header>
 
-    <!-- Hero 主視覺區塊 -->
-<section class="hero">
-    <div class="sub-tag">老屋翻新．新宅改造．光影重塑專家</div>
-    <h1>沐光而生，方寸至美</h1>
-    <p>專注老屋翻新與新宅改造室內裝修工程，賦予舊建築溫暖、明亮且實用的新生命。打破沉悶格局，讓陽光再次溫柔棲居於家的每個角落。</p>
-    <div class="hero-btns">
-        <a href="#contact" class="btn-primary">預約老屋諮詢</a>
-        <a href="#portfolio" class="btn-secondary" style="color: #fff; border-color: #fff;">瀏覽改造案例</a>
-    </div>
-</section>
+    <!-- Hero 主視覺區塊（帶背景圖與半透明遮罩） -->
+    <section class="hero">
+        <div class="sub-tag">老屋翻新．新宅改造．光影重塑專家</div>
+        <h1>沐光而生，方寸至美</h1>
+        <p>專注老屋翻新與新宅改造室內裝修工程，賦予舊建築溫暖、明亮且實用的新生命。打破沉悶格局，讓陽光再次溫柔棲居於家的每個角落。</p>
+        <div class="hero-btns">
+            <a href="#contact" class="btn-primary">預約老屋諮詢</a>
+            <a href="#portfolio" class="btn-secondary" style="color: #fff; border-color: #fff;">瀏覽改造案例</a>
+        </div>
+    </section>
 
     <!-- 關於我們區塊（左字右圖） -->
     <section id="about">
         <div class="about-grid">
             <div class="about-content">
-                <div class="sub-tag">ABOUT MU GUANG FANG CUN</div>
+                <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 10px;">ABOUT MU GUANG FANG CUN</div>
                 <h2>方寸之間，盡顯巧思；<br>引光入室，煥新生活。</h2>
                 <p>每一間陪伴歲月的舊宅，都承載著家的記憶，卻也隨著時間面臨採光不足、動線不佳或水電管線老化等安全隱患。</p>
                 <p><strong>沐光方寸空間工程</strong>專注「老屋翻新」與「新宅改造」。我們重視老屋結構、安全、採光與生活動線，透過格局調整、收納整合與嚴謹施工管理，在有限空間中打造舒適、耐用且貼近生活需求的居所。</p>
@@ -482,7 +486,7 @@
     <!-- 四大核心優勢區塊 -->
     <section id="advantages">
         <div class="section-header">
-            <div class="sub-tag">CORE ADVANTAGES</div>
+            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">CORE ADVANTAGES</div>
             <h2>四大核心優勢，嚴謹守護您的家</h2>
             <p style="color: var(--text-muted);">專攻老屋‧新宅改造難題，從基礎工程到收納與軟裝配置，提供一站式安心統包。</p>
         </div>
@@ -517,7 +521,7 @@
     <!-- 裝修案例區塊 -->
     <section id="portfolio">
         <div class="section-header">
-            <div class="sub-tag">RENOVATION PORTFOLIO</div>
+            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">RENOVATION PORTFOLIO</div>
             <h2>空間規劃案例</h2>
         </div>
         <div class="portfolio-grid">
@@ -545,37 +549,13 @@
                     <p>以淺色櫃體與簡潔檯面呈現易於整理的料理空間。</p>
                 </div>
             </div>
-            <div class="portfolio-card">
-                <img src="images/bedroom-01.jpg" alt="溫潤木質主臥空間">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">臥室空間</span>
-                    <h3>溫潤木質主臥空間</h3>
-                    <p>以木紋櫃體、柔和燈光與床頭配置，營造沉穩舒適的休息環境。</p>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <img src="images/bedroom-02.jpg" alt="明亮簡約的臥室配置">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">臥室空間</span>
-                    <h3>明亮簡約的臥室配置</h3>
-                    <p>運用自然採光、衣櫃與簡潔色調，維持清爽的空間感。</p>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <img src="images/bedroom-03.jpg" alt="木質調舒適臥室">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">臥室空間</span>
-                    <h3>木質調舒適臥室</h3>
-                    <p>以深淺木色搭配整合式收納，呈現安定且溫暖的休憩氛圍。</p>
-                </div>
-            </div>
         </div>
     </section>
 
     <!-- 服務流程區塊 -->
     <section id="process">
         <div class="section-header">
-            <div class="sub-tag">SERVICE PROCESS</div>
+            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">SERVICE PROCESS</div>
             <h2>透明流暢的服務流程</h2>
             <p style="color: var(--text-muted);">從溝通需求到驗收交屋，每個階段都由工程團隊全程掌握進度與施工品質。</p>
         </div>
@@ -613,11 +593,11 @@
         </div>
     </section>
 
-    <!-- 預約諮詢區塊 -->
+    <!-- 預約諮詢與聯絡區塊 -->
     <section id="contact">
         <div class="contact-container">
             <div class="contact-info">
-                <div class="sub-tag">BOOK A CONSULTATION</div>
+                <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">BOOK A CONSULTATION</div>
                 <h2>開啟您的老屋與新宅煥新之旅</h2>
                 <p style="color: var(--text-muted); margin-bottom: 25px;">歡迎聯繫我們，安排現場丈量與需求討論。</p>
                 
