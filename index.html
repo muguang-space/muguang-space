@@ -16,7 +16,8 @@
             --text-dark: #2C2724;
             --text-muted: #66605B;
             --white: #FFFFFF;
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            --card-hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
             --transition: all 0.3s ease;
         }
 
@@ -48,14 +49,14 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            padding: 1rem 5%;
+            padding: 1.2rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             font-weight: 700;
             letter-spacing: 1px;
             color: var(--primary-color);
@@ -69,7 +70,7 @@
         }
 
         nav a {
-            margin-left: 20px;
+            margin-left: 24px;
             font-size: 0.95rem;
             color: var(--text-muted);
             font-weight: 500;
@@ -82,7 +83,7 @@
         .btn-nav {
             background-color: var(--primary-color);
             color: var(--white) !important;
-            padding: 8px 18px;
+            padding: 9px 20px;
             border-radius: 20px;
         }
 
@@ -90,7 +91,7 @@
             background-color: var(--accent-color);
         }
 
-        /* Hero 主視覺區塊（已調亮半透明遮罩至 0.25） */
+        /* Hero 主視覺區塊（明亮背景） */
         .hero {
             position: relative;
             padding: 140px 5% 120px;
@@ -161,19 +162,20 @@
 
         /* 通用 Section 樣式 */
         section {
-            padding: 80px 5%;
+            padding: 90px 5%;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .section-header {
-            margin-bottom: 50px;
+            text-align: center;
+            margin-bottom: 55px;
         }
 
         .section-header h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--primary-color);
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
         /* 關於我們（雙欄左字右圖） */
@@ -186,14 +188,14 @@
 
         .about-image img {
             width: 100%;
-            height: auto;
+            height: 420px;
             border-radius: 12px;
             box-shadow: var(--card-shadow);
             object-fit: cover;
         }
 
         .about-content h2 {
-            font-size: 1.8rem;
+            font-size: 1.85rem;
             margin-bottom: 20px;
             line-height: 1.4;
         }
@@ -211,7 +213,7 @@
 
         .highlight-card {
             background: var(--white);
-            padding: 15px 20px;
+            padding: 18px 22px;
             border-radius: 8px;
             border-left: 4px solid var(--accent-color);
             box-shadow: var(--card-shadow);
@@ -236,18 +238,20 @@
 
         .adv-card {
             background: var(--white);
-            padding: 30px;
+            padding: 32px 28px;
             border-radius: 12px;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.03);
         }
 
         .adv-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
+            box-shadow: var(--card-hover-shadow);
         }
 
         .adv-icon {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 15px;
         }
 
@@ -260,82 +264,98 @@
         .adv-card p {
             font-size: 0.95rem;
             color: var(--text-muted);
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .adv-tag {
             font-size: 0.8rem;
             color: var(--accent-color);
             background: var(--accent-light);
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 4px;
             display: inline-block;
             font-weight: 600;
         }
 
-        /* 裝修案例與房間介紹 */
+        /* 作品集美化排版 (Portfolio Grid) */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            gap: 32px;
         }
 
         .portfolio-card {
             background: var(--white);
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
         }
 
         .portfolio-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
+            box-shadow: var(--card-hover-shadow);
         }
 
         .portfolio-card img {
             width: 100%;
-            height: 240px;
+            height: 250px;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.03);
         }
 
         .portfolio-info {
-            padding: 20px;
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .portfolio-category {
             font-size: 0.8rem;
             color: var(--accent-color);
             font-weight: 600;
-            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
 
         .portfolio-info h3 {
-            font-size: 1.15rem;
-            margin: 5px 0 10px;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
         }
 
         .portfolio-info p {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: var(--text-muted);
+            line-height: 1.7;
         }
 
         /* 服務流程 */
         .process-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 20px;
         }
 
         .process-step {
             background: var(--white);
-            padding: 25px 20px;
-            border-radius: 10px;
+            padding: 28px 20px;
+            border-radius: 12px;
             box-shadow: var(--card-shadow);
             text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.03);
         }
 
         .step-num {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--accent-color);
             margin-bottom: 10px;
@@ -355,32 +375,34 @@
         .contact-container {
             background: var(--white);
             border-radius: 16px;
-            padding: 40px;
+            padding: 45px;
             box-shadow: var(--card-shadow);
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.03);
         }
 
         .contact-info h2 {
-            font-size: 1.8rem;
+            font-size: 1.85rem;
             margin-bottom: 15px;
         }
 
         .contact-detail-item {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .contact-detail-item strong {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--text-muted);
         }
 
         .contact-detail-item span {
             font-size: 1.05rem;
             color: var(--primary-color);
+            font-weight: 500;
         }
 
         /* 頁尾 */
@@ -388,32 +410,8 @@
             background-color: var(--primary-color);
             color: rgba(255, 255, 255, 0.7);
             text-align: center;
-            padding: 30px 5%;
-            font-size: 0.85rem;
-        }
-
-        /* 右下角 LINE 浮動按鈕 */
-        .line-float-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #06C755;
-            color: #FFFFFF;
-            padding: 12px 22px;
-            border-radius: 30px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .line-float-btn:hover {
-            transform: scale(1.05);
-            background-color: #05b34c;
+            padding: 32px 5%;
+            font-size: 0.88rem;
         }
 
         /* RWD 響應式調整 */
@@ -440,7 +438,7 @@
         <nav>
             <a href="#about">關於我們</a>
             <a href="#advantages">服務優勢</a>
-            <a href="#portfolio">房間介紹與作品</a>
+            <a href="#portfolio">全屋作品展示</a>
             <a href="#process">服務流程</a>
             <a href="#contact" class="btn-nav">預約諮詢</a>
         </nav>
@@ -478,7 +476,7 @@
                 </div>
             </div>
             <div class="about-image">
-                <img src="index.files/image002.jpg" alt="沐光方寸設計實景">
+                <img src="index.files/image004.jpg" alt="沐光方寸設計實景">
             </div>
         </div>
     </section>
@@ -486,9 +484,9 @@
     <!-- 四大核心優勢區塊 -->
     <section id="advantages">
         <div class="section-header">
-            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">CORE ADVANTAGES</div>
+            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem;">CORE ADVANTAGES</div>
             <h2>四大核心優勢，嚴謹守護您的家</h2>
-            <p style="color: var(--text-muted);">專攻老屋‧新宅改造難題，從基礎工程到收納與軟裝配置，提供一站式安心統包。</p>
+            <p style="color: var(--text-muted); margin-top: 8px;">專攻老屋‧新宅改造難題，從基礎工程到收納與軟裝配置，提供一站式安心統包。</p>
         </div>
         <div class="advantages-grid">
             <div class="adv-card">
@@ -518,50 +516,114 @@
         </div>
     </section>
 
-    <!-- 裝修案例與房間介紹區塊 -->
+    <!-- 裝修案例作品展示（精準保留所有圖片與分類） -->
     <section id="portfolio">
         <div class="section-header">
-            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">RENOVATION PORTFOLIO</div>
-            <h2>住宅改造與房間空間介紹</h2>
-            <p style="color: var(--text-muted);">專為一般住家規劃的原創作品展示，呈現溫馨、明亮且充滿質感的住宅空間。</p>
+            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem;">RENOVATION PORTFOLIO</div>
+            <h2>全屋空間改造與作品展示</h2>
+            <p style="color: var(--text-muted); margin-top: 8px;">包含房間臥室、客廳、開放式餐廚與獨立廚房等實際作品展示。</p>
         </div>
         <div class="portfolio-grid">
-            <!-- 1. 客廳空間介紹 -->
+
+            <!-- 1. 玄關空間 -->
             <div class="portfolio-card">
-                <img src="index.files/image004.jpg" alt="溫潤現代風格客廳">
+                <img src="index.files/image001.jpg" alt="玄關落塵區與穿透視覺">
                 <div class="portfolio-info">
-                    <span class="portfolio-category">客廳空間</span>
-                    <h3>溫潤現代風格客廳</h3>
-                    <p>採用暖灰色布藝沙發與質感木質/大理石茶幾，搭配隱藏式線性光源與造型吊燈，營造通透、自然且無壓力的居住氣氛。</p>
+                    <span class="portfolio-category">玄關空間</span>
+                    <h3>落塵玄關與通透視角</h3>
+                    <p>巧妙打造入場緩衝，結合穿透感材質引光入室，呈現大氣明亮的開闊迎賓感。</p>
                 </div>
             </div>
-            <!-- 2. 主臥室空間介紹 -->
+
+            <!-- 2. 房間臥室：電視牆與多功能收納 -->
             <div class="portfolio-card">
-                <img src="index.files/image007.jpg" alt="靜謐舒眠主臥室">
+                <img src="index.files/image002.jpg" alt="房間電視主牆與收納櫃">
+                <div class="portfolio-info">
+                    <span class="portfolio-category">房間臥室空間</span>
+                    <h3>大理石紋電視牆與多功能收納</h3>
+                    <p>淺色石紋、灰木紋門板與開放式展示櫃，將房間內的收納機能與視覺美感完美融為一體。</p>
+                </div>
+            </div>
+
+            <!-- 3. 房間臥室：沙發休憩區 -->
+            <div class="portfolio-card">
+                <img src="index.files/image003.jpg" alt="房間沙發與休憩區域">
+                <div class="portfolio-info">
+                    <span class="portfolio-category">房間臥室空間</span>
+                    <h3>舒適休閒沙發與軟裝搭配</h3>
+                    <p>精選大地色系柔軟沙發與茶几，於房間內規劃私密放鬆的休閒角落。</p>
+                </div>
+            </div>
+
+            <!-- 4. 房間臥室：溫潤現代風格房間全景 -->
+            <div class="portfolio-card">
+                <img src="index.files/image004.jpg" alt="溫潤現代風格房間">
+                <div class="portfolio-info">
+                    <span class="portfolio-category">房間臥室空間</span>
+                    <h3>溫潤現代風格房間全景</h3>
+                    <p>暖灰色布藝沙發搭配隱藏式線性光源與造型吊燈，呈現通透、自然且無壓力的私人居住質感。</p>
+                </div>
+            </div>
+
+            <!-- 5. 開放式餐廚一體 -->
+            <div class="portfolio-card">
+                <img src="index.files/image005.jpg" alt="開放式客餐廚一體">
+                <div class="portfolio-info">
+                    <span class="portfolio-category">開放餐廚空間</span>
+                    <h3>客餐廚連貫光影動線</h3>
+                    <p>打破空間界線，將客廳、餐廳與料理區連成一氣，打造流暢的大坪數視覺感。</p>
+                </div>
+            </div>
+
+            <!-- 6. 主臥室：衣櫃系統 -->
+            <div class="portfolio-card">
+                <img src="index.files/image006.jpg" alt="主臥室質感套房">
                 <div class="portfolio-info">
                     <span class="portfolio-category">主臥室空間</span>
-                    <h3>靜謐舒眠主臥室</h3>
-                    <p>結合木質格柵主牆、柔美間接照明與床頭低調壁燈，選用大地色系亞麻軟裝，築造出靜謐放鬆的私人睡眠場域。</p>
+                    <h3>靜謐主臥與衣櫃系統整合</h3>
+                    <p>一體化系統衣櫃與沉穩色調配置，兼具強大收納能力與舒眠氛圍。</p>
                 </div>
             </div>
-            <!-- 3. 餐廚空間介紹 -->
+
+            <!-- 7. 開放式中島酒吧廚房 -->
             <div class="portfolio-card">
-                <img src="index.files/image009.jpg" alt="開放式客餐廚空間">
+                <img src="index.files/image007.jpg" alt="開放式客餐廚與中島空間">
                 <div class="portfolio-info">
-                    <span class="portfolio-category">餐廚空間</span>
-                    <h3>俐落明亮餐廚與開放配置</h3>
-                    <p>以淺色櫃體與簡潔檯面呈現易於整理的料理空間，利用自然採光與開放配置讓餐廚區域更通透流暢。</p>
+                    <span class="portfolio-category">開放廚房空間</span>
+                    <h3>開放式中島吧台與現代廚房</h3>
+                    <p>配置大理石中島吧台與工業風造型吊燈，成為親友聚會與享受料理的核心區域。</p>
                 </div>
             </div>
+
+            <!-- 8. 主臥室：木質格柵主牆 -->
+            <div class="portfolio-card">
+                <img src="index.files/image008.jpg" alt="靜謐舒眠主臥室格柵牆">
+                <div class="portfolio-info">
+                    <span class="portfolio-category">主臥室空間</span>
+                    <h3>木質格柵床頭與溫暖間接光</h3>
+                    <p>利用細緻木格柵與柔和床頭燈光，堆疊出富有層次感的溫暖私人睡眠場域。</p>
+                </div>
+            </div>
+
+            <!-- 9. 獨立 U 型明亮廚房 -->
+            <div class="portfolio-card">
+                <img src="index.files/image009.jpg" alt="獨立 U 型明亮廚房">
+                <div class="portfolio-info">
+                    <span class="portfolio-category">獨立廚房空間</span>
+                    <h3>俐落明亮 U 型獨立廚房</h3>
+                    <p>配置簡潔檯面與三面收納櫃，發揮黃金料理三角動線，極致防油煙與好清潔。</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- 服務流程區塊 -->
     <section id="process">
         <div class="section-header">
-            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">SERVICE PROCESS</div>
+            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem;">SERVICE PROCESS</div>
             <h2>透明流暢的服務流程</h2>
-            <p style="color: var(--text-muted);">從溝通需求到驗收交屋，每個階段都由工程團隊全程掌握進度與施工品質。</p>
+            <p style="color: var(--text-muted); margin-top: 8px;">從溝通需求到驗收交屋，每個階段都由工程團隊全程掌握進度與施工品質。</p>
         </div>
         <div class="process-grid">
             <div class="process-step">
@@ -632,11 +694,6 @@
     <footer>
         <p>&copy; 沐光方寸空間工程 版權所有. All Rights Reserved.</p>
     </footer>
-
-    <!-- 右下角 LINE 浮動按鈕 -->
-    <a href="https://line.me/ti/p/~coolbear761015" target="_blank" class="line-float-btn">
-        💬 LINE 快速預約
-    </a>
 
 </body>
 </html>
