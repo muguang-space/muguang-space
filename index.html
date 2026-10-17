@@ -1,169 +1,855 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+    <meta name="google-site-verification" content="Jnl7yVBfQOTVtrUuelUp_TsJt6xfr4sPqYcowHoSXCo" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>沐光方寸空間設計有限公司 | 桃園老屋翻新・室內裝修設計</title>
-    <meta name="description" content="沐光方寸空間設計專注於桃園地區的老屋翻新、室內裝修、空間規劃與統包工程。為您打造溫潤現代、自然舒適的理想居家環境。">
-    <meta name="keywords" content="桃園室內設計, 桃園老屋翻新, 室內裝修, 空間規劃, 統包工程, 沐光方寸">
-    <!-- Google Search Console 驗證標記 -->
-    <meta name="google-site-verification" content="Jnl7yVBfQOTVtrUuelUp_TsJt6xfr4sPqYcowHoSXCo" />
+    
+    <!-- 核心 SEO 搜尋引擎優化標籤 -->
+    <title>沐光方寸空間工程 | 桃園老屋翻新．新宅改造．室內裝修設計統包</title>
+    <meta name="description" content="沐光方寸空間工程專注於桃園、老屋翻新、新宅室內裝修與空間規劃統包工程。透明公開報價、嚴謹施工管理，讓陽光重回您的居家生活。立即預約免費丈量與諮詢！">
+    <meta name="keywords" content="桃園室內設計, 桃園老屋翻新, 新宅改造, 空間統包工程, 廚房改造, 大理石電視牆, 室內裝修, 沐光方寸">
+    <meta name="author" content="沐光方寸空間工程">
+    
+    <!-- Open Graph / 社交媒體分享預覽設定 -->
+    <meta property="og:title" content="沐光方寸空間工程 | 老屋翻新與新宅改造專家">
+    <meta property="og:description" content="專注舊屋翻新、採光格局優化、極致收納與透明統包工程。點擊查看精選空間作品與預約諮詢。">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_TW">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #8C7B6B;
-            --primary-light: #F4F1EA;
-            --text-dark: #333333;
-            --bg-light: #FAFAFA;
+            --primary-color: #2C2724;
+            --accent-color: #A38264;
+            --accent-light: #F4EFEB;
+            --bg-light: #FBF9F7;
+            --text-dark: #2C2724;
+            --text-muted: #66605B;
             --white: #FFFFFF;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            --card-hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
         }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
+
         body {
-            color: var(--text-dark);
+            font-family: 'Plus Jakarta Sans', 'Noto Serif TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-light);
-            line-height: 1.6;
+            color: var(--text-dark);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
         }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        /* 導覽列 Header */
         header {
-            background-color: var(--white);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            position: fixed;
-            width: 100%;
+            position: sticky;
             top: 0;
+            background: rgba(251, 249, 247, 0.95);
+            backdrop-filter: blur(10px);
             z-index: 1000;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1.2rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .logo {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: var(--primary);
+            font-size: 1.35rem;
+            font-weight: 700;
             letter-spacing: 1px;
+            color: var(--primary-color);
         }
+
+        .logo span {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--accent-color);
+            margin-left: 8px;
+        }
+
+        nav a {
+            margin-left: 24px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .btn-nav {
+            background-color: var(--primary-color);
+            color: var(--white) !important;
+            padding: 9px 20px;
+            border-radius: 20px;
+        }
+
+        .btn-nav:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Hero 主視覺區塊 */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image002.jpg') center/cover no-repeat;
-            height: 100vh;
+            position: relative;
+            padding: 140px 5% 120px;
+            text-align: center;
+            color: #FFFFFF;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero .sub-tag {
+            color: #E6D5C3;
+            display: inline-block;
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #F0EDE6;
+            max-width: 750px;
+            margin: 0 auto 35px auto;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            border: 1px solid #FFFFFF;
+            color: #FFFFFF;
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-line {
+            background-color: #06C755;
+            color: var(--white);
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn-line:hover {
+            background-color: #05b24c;
+        }
+
+        /* 通用 Section 樣式 */
+        section {
+            padding: 90px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-top: 8px;
+        }
+
+        /* 關於我們 */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 420px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            object-fit: cover;
+        }
+
+        .about-content h2 {
+            font-size: 1.85rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .about-content p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .about-highlights {
+            display: flex;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .highlight-card {
+            background: var(--white);
+            padding: 18px 22px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: var(--card-shadow);
+        }
+
+        .highlight-card h4 {
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+
+        .highlight-card p {
+            font-size: 0.85rem;
+            margin-bottom: 0;
+        }
+
+        /* 三大核心優勢 */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .adv-card {
+            background: var(--white);
+            padding: 32px 28px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .adv-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .adv-icon {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .adv-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .adv-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .adv-tag {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            background: var(--accent-light);
+            padding: 4px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        /* 作品集卡片與多圖縮圖切換 */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .portfolio-card {
+            background: var(--white);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .img-container {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .portfolio-card img.main-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .img-container:hover img.main-img {
+            transform: scale(1.03);
+        }
+
+        .img-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            color: var(--white);
-            padding: 0 1rem;
-            margin-top: 60px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        .hero-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            letter-spacing: 2px;
+
+        .img-container:hover .img-overlay {
+            opacity: 1;
         }
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+
+        /* 多圖縮圖區 */
+        .thumb-list {
+            display: flex;
+            gap: 8px;
+            padding: 12px 20px 0;
         }
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 0.75rem 2rem;
+
+        .thumb-list img {
+            width: 60px;
+            height: 45px;
             border-radius: 4px;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background-color: #756555;
-        }
-        .section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
-        }
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: var(--primary);
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .card {
-            background: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .card img {
-            width: 100%;
-            height: 220px;
+            cursor: pointer;
             object-fit: cover;
+            opacity: 0.6;
+            transition: var(--transition);
         }
-        .card-body {
-            padding: 1.5rem;
+
+        .thumb-list img:hover, .thumb-list img.active {
+            opacity: 1;
+            border: 2px solid var(--accent-color);
         }
-        .card-body h3 {
-            margin-bottom: 0.75rem;
-            color: var(--text-dark);
+
+        .portfolio-info {
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
-        footer {
-            background-color: #222;
-            color: var(--white);
+
+        .portfolio-category {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .portfolio-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .portfolio-info p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Lightbox 放大彈窗 */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-modal img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 35px;
+            color: #fff; font-size: 40px; font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 服務流程 */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        .process-step {
+            background: var(--white);
+            padding: 28px 20px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
             text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .step-num {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .process-step h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .process-step p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* 聯絡我們與預約跳轉按鈕區塊 */
+        .contact-container {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: var(--card-shadow);
+            max-width: 850px;
+            margin: 0 auto;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .contact-content-center {
+            text-align: center;
+        }
+
+        .contact-content-center h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .contact-content-center p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 35px;
+        }
+
+        .contact-grid-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            text-align: left;
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 35px;
+        }
+
+        .contact-detail-item {
+            margin-bottom: 12px;
+        }
+
+        .contact-detail-item strong {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .contact-detail-item span {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .contact-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* 頁尾 */
+        footer {
+            background-color: var(--primary-color);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 32px 5%;
+            font-size: 0.88rem;
+        }
+
+        /* RWD 響應式調整 */
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            nav {
+                display: none;
+            }
+            .contact-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .contact-actions a {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- 頂部導覽列 -->
     <header>
-        <div class="nav-container">
-            <div class="logo">沐光方寸空間設計</div>
+        <div class="logo">
+            沐光方寸 <span>Space Renovation</span>
         </div>
+        <nav>
+            <a href="#about">關於我們</a>
+            <a href="#advantages">服務優勢</a>
+            <a href="#portfolio">精選作品展示</a>
+            <a href="#process">服務流程</a>
+            <a href="#contact" class="btn-nav">預約諮詢</a>
+        </nav>
     </header>
 
+    <!-- Hero 主視覺區塊 -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>光影與空間的完美對話</h1>
-            <p>專注於桃園老屋翻新與室內裝修，為您築造溫潤無壓的理想生活</p>
-            <a href="#portfolio" class="btn">瀏覽作品</a>
+        <div class="sub-tag">老屋翻新．新宅改造．光影重塑專家</div>
+        <h1>沐光而生，方寸至美</h1>
+        <p>專注老屋翻新與新宅改造室內裝修工程，賦予舊建築溫暖、明亮且實用的新生命。打破沉悶格局，讓陽光再次溫柔棲居於家的每個角落。</p>
+        <div class="hero-btns">
+            <a href="#contact" class="btn-primary">預約老屋諮詢</a>
+            <a href="#portfolio" class="btn-secondary">瀏覽精選作品</a>
         </div>
     </section>
 
-    <section id="portfolio" class="section">
-        <h2 class="section-title">精選設計作品</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="image002.jpg" alt="溫潤現代風格客廳">
-                <div class="card-body">
-                    <h3>溫潤現代風格客廳</h3>
-                    <p>採用暖灰色布藝沙發與質感木質茶幾，搭配隱藏式線性光源與造型吊燈，營造通透、自然且無壓力的居住氣氛。</p>
+    <!-- 關於我們區塊 -->
+    <section id="about">
+        <div class="about-grid">
+            <div class="about-content">
+                <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 10px;">ABOUT MU GUANG FANG CUN</div>
+                <h2>方寸之間，盡顯巧思；<br>引光入室，煥新生活。</h2>
+                <p>每一間陪伴歲月的舊宅，都承載著家的記憶，卻也隨著時間面臨採光不足、動線不佳或水電管線老化等安全隱患。</p>
+                <p><strong>沐光方寸空間工程</strong>專注「老屋翻新」與「新宅改造」。我們重視老屋結構、安全、採光與生活動線，透過格局調整、收納整合與嚴謹施工管理，在有限空間中打造舒適、耐用且貼近生活需求的居所。</p>
+                
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <h4>室內裝修與空間統包</h4>
+                        <p>專業團隊一站式服務</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>完全透明工程報價</h4>
+                        <p>無隱藏費用，標準模組化</p>
+                    </div>
                 </div>
             </div>
-            <div class="card">
-                <img src="image004.jpg" alt="靜謐舒眠主臥室">
-                <div class="card-body">
-                    <h3>靜謐舒眠主臥室</h3>
-                    <p>結合木質格柵主牆、柔美間接照明與床頭低調壁燈，選用大地色系亞麻軟裝，築造出靜謐放鬆的私人睡眠場域。</p>
+            <div class="about-image">
+                <img src="images/extra-living-kitchen.jpg" alt="沐光方寸設計實景" onclick="openModal(this.src)" style="cursor: pointer;">
+            </div>
+        </div>
+    </section>
+
+    <!-- 三大核心優勢區塊 -->
+    <section id="advantages">
+        <div class="section-header">
+            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem;">CORE ADVANTAGES</div>
+            <h2>核心優勢，嚴謹守護您的家</h2>
+            <p style="color: var(--text-muted); margin-top: 8px;">專攻老屋‧新宅改造難題，從採光格局到收納與施工管理，提供一站式安心統包。</p>
+        </div>
+        <div class="advantages-grid">
+            <div class="adv-card">
+                <div class="adv-icon">☀️</div>
+                <h3>光影與採光格局優化</h3>
+                <p>打破長型老屋或多餘隔間的壓迫感，重新調校動線，精準引自然光滲透至每個空間角落。</p>
+                <span class="adv-tag">通透開闊 ‧ 順暢動線</span>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">📦</div>
+                <h3>極致收納與方寸活用</h3>
+                <p>針對新宅空間規劃客製化系統櫃體，極致運用每一吋坪數，讓小空間放大雙倍視覺感。</p>
+                <span class="adv-tag">空間活用 ‧ 視覺放大</span>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">📄</div>
+                <h3>透明工程與嚴謹統包</h3>
+                <p>施工進度全程線上回報，標準化工法與驗收規範，絕不惡意加價，給業主最紮實的售後保固。</p>
+                <span class="adv-tag">專人監工 ‧ 品質保障</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 空間作品展示區塊 -->
+    <section id="portfolio">
+        <div class="section-header">
+            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem;">RENOVATION PORTFOLIO</div>
+            <h2>精選室內空間作品展示</h2>
+            <p style="color: var(--text-muted); margin-top: 8px;">點擊縮圖可切換不同拍攝角度，點擊大圖可放大觀看高清細節。</p>
+        </div>
+        <div class="portfolio-grid">
+
+            <!-- 1. 單獨廚房 -->
+            <div class="portfolio-card">
+                <div class="img-container" onclick="openModal(document.getElementById('kit-main-img').src)">
+                    <img id="kit-main-img" class="main-img" src="index.files/image009.jpg" alt="俐落明亮 U 型獨立廚房">
+                    <div class="img-overlay">🔍 點擊放大觀看細節</div>
+                </div>
+                <div class="thumb-list">
+                    <img src="index.files/image009.jpg" class="active" onclick="switchImage('kit-main-img', this)" title="視角一">
+                    <img src="index.files/image011.jpg" onclick="switchImage('kit-main-img', this)" title="視角二">
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">獨立廚房空間</span>
+                    <h3>俐落明亮 U 型獨立廚房</h3>
+                    <p>配置簡潔檯面與三面收納櫃，發揮黃金料理三角動線，極致防油煙與好清潔。（下方可切換拍攝角度）</p>
+                </div>
+            </div>
+
+            <!-- 2. 中島廚房與開放式餐廚客廳 -->
+            <div class="portfolio-card">
+                <div class="img-container" onclick="openModal(document.getElementById('openkit-main-img').src)">
+                    <img id="openkit-main-img" class="main-img" src="index.files/image002.jpg" alt="開放餐廚與中島客廳空間">
+                    <div class="img-overlay">🔍 點擊放大觀看細節</div>
+                </div>
+                <div class="thumb-list">
+                    <img src="index.files/image002.jpg" class="active" onclick="switchImage('openkit-main-img', this)" title="視角一">
+                    <img src="index.files/image007.jpg" onclick="switchImage('openkit-main-img', this)" title="視角二">
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">開放餐廚與客廳空間</span>
+                    <h3>開放餐廚與中島客廳空間</h3>
+                    <p>結合大理石中島吧台與客廳連貫光影動線，打造通透且凝聚情感的大器互動核心。（下方可切換拍攝角度）</p>
+                </div>
+            </div>
+
+            <!-- 3. 大理石紋電視牆與多功能收納 -->
+            <div class="portfolio-card">
+                <div class="img-container" onclick="openModal(document.getElementById('tv-main-img').src)">
+                    <img id="tv-main-img" class="main-img" src="index.files/image004.jpg" alt="大理石紋電視牆與多功能收納">
+                    <div class="img-overlay">🔍 點擊放大觀看細節</div>
+                </div>
+                <div class="thumb-list">
+                    <img src="index.files/image004.jpg" class="active" onclick="switchImage('tv-main-img', this)" title="視角一">
+                    <img src="index.files/image005.jpg" onclick="switchImage('tv-main-img', this)" title="視角二">
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">客廳電視牆空間</span>
+                    <h3>大理石紋電視牆與多功能收納</h3>
+                    <p>精選大理石紋理與溫潤木質櫃體結合，兼具極佳視覺質感與強大日常收納機能。（下方可切換拍攝角度）</p>
+                </div>
+            </div>
+
+            <!-- 4. 主臥室房型 A -->
+            <div class="portfolio-card">
+                <div class="img-container" onclick="openModal(document.getElementById('bed1-main-img').src)">
+                    <img id="bed1-main-img" class="main-img" src="images/bedroom-01.jpg" alt="現代奶咖風明亮主臥">
+                    <div class="img-overlay">🔍 點擊放大觀看細節</div>
+                </div>
+                <div class="thumb-list">
+                    <img src="images/bedroom-01.jpg" class="active" onclick="switchImage('bed1-main-img', this)" title="視角一">
+                    <img src="images/bedroom-02.jpg" onclick="switchImage('bed1-main-img', this)" title="視角二">
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">主臥室空間</span>
+                    <h3>現代奶咖風明亮主臥</h3>
+                    <p>柔和米灰色調結合天花板圓弧間接照明，搭配客製化收納櫃與化妝台，打造明亮開闊的舒眠氛圍。（下方可切換拍攝角度）</p>
+                </div>
+            </div>
+
+            <!-- 5. 主臥室房型 B -->
+            <div class="portfolio-card">
+                <div class="img-container" onclick="openModal(document.getElementById('bed2-main-img').src)">
+                    <img id="bed2-main-img" class="main-img" src="images/bedroom-03.jpg" alt="深木紋奢華靜謐主臥">
+                    <div class="img-overlay">🔍 點擊放大觀看細節</div>
+                </div>
+                <div class="thumb-list">
+                    <img src="images/bedroom-03.jpg" class="active" onclick="switchImage('bed2-main-img', this)" title="視角一">
+                    <img src="images/bedroom-04.jpg" onclick="switchImage('bed2-main-img', this)" title="視角二">
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">主臥室空間</span>
+                    <h3>深木紋奢華靜謐主臥</h3>
+                    <p>運用深色木質感系統衣櫃與床頭圓弧造型光帶，築造沉穩放鬆且極具奢華質感的私人睡眠場域。（下方可切換拍攝角度）</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Lightbox 圖片放大彈窗 -->
+    <div id="lightbox" class="lightbox-modal" onclick="closeModal()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="放大預覽照片">
+    </div>
+
+    <!-- 服務流程區塊 -->
+    <section id="process">
+        <div class="section-header">
+            <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem;">SERVICE PROCESS</div>
+            <h2>透明流暢的服務流程</h2>
+            <p style="color: var(--text-muted); margin-top: 8px;">從溝通需求到驗收交屋，每個階段都由工程團隊全程掌握進度與施工品質。</p>
+        </div>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-num">01</div>
+                <h3>諮詢溝通</h3>
+                <p>免費初步諮詢與預算了解</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">02</div>
+                <h3>現場丈量</h3>
+                <p>屋況深度健康檢查</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">03</div>
+                <h3>動線規劃</h3>
+                <p>空間解構與採光重塑</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">04</div>
+                <h3>報價簽約</h3>
+                <p>報價透明公開無隱藏</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">05</div>
+                <h3>嚴謹施工</h3>
+                <p>專人監工與定期回報</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">06</div>
+                <h3>驗收保固</h3>
+                <p>細緻驗收與售後保障</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 預約諮詢與聯絡表單按鈕跳轉區塊 -->
+    <section id="contact">
+        <div class="contact-container">
+            <div class="contact-content-center">
+                <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">BOOK A CONSULTATION</div>
+                <h2>開啟您的老屋與新宅煥新之旅</h2>
+                <p>歡迎聯繫我們，填寫表單或透過 LINE 安排現場丈量與需求討論。</p>
+                
+                <div class="contact-grid-info">
+                    <div class="contact-detail-item">
+                        <strong>營業項目</strong>
+                        <span>室內裝修業 / 空間改造統包工程</span>
+                    </div>
+                    <div class="contact-detail-item">
+                        <strong>諮詢 LINE ID</strong>
+                        <span>coolbear761015</span>
+                    </div>
+                    <div class="contact-detail-item">
+                        <strong>公司地址</strong>
+                        <span>桃園市楊梅區永美路445巷122弄8號</span>
+                    </div>
+                    <div class="contact-detail-item">
+                        <strong>營業時間</strong>
+                        <span>週一至週六 09:00 - 18:00 (預約制)</span>
+                    </div>
+                </div>
+
+                <div class="contact-actions">
+                    <a href="https://forms.gle/e5HkUan47CKkWNYR9" target="_blank" class="btn-primary" style="padding: 14px 32px; font-size: 1.05rem;">📝 填寫客戶資料預約表單</a>
+                    <a href="https://line.me/ti/p/~coolbear761015" target="_blank" class="btn-line" style="padding: 14px 32px; font-size: 1.05rem;">💬 LINE 即時線上諮詢</a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- 頁尾 -->
     <footer>
-        <p>&copy; 2026 沐光方寸空間設計有限公司 版權所有</p>
+        <p>&copy; 沐光方寸空間工程 版權所有. All Rights Reserved.</p>
     </footer>
+
+    <!-- JavaScript 圖片切換與放大功能 -->
+    <script>
+        function switchImage(targetImgId, thumbEl) {
+            document.getElementById(targetImgId).src = thumbEl.src;
+            let siblings = thumbEl.parentElement.children;
+            for (let i = 0; i < siblings.length; i++) {
+                siblings[i].classList.remove('active');
+            }
+            thumbEl.classList.add('active');
+        }
+
+        function openModal(imgSrc) {
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>
