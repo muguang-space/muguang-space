@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>沐光方寸空間工程 | 老屋翻新．新宅改造．光影重塑專家</title>
+    
+    <!-- 核心 SEO 搜尋引擎優化標籤 -->
+    <title>沐光方寸空間工程 | 桃園老屋翻新．新宅改造．室內裝修設計統包</title>
+    <meta name="description" content="沐光方寸空間工程專注於桃園、中島廚房、U型獨立廚房、老屋翻新、新宅室內裝修與空間規劃統包工程。透明公開報價、嚴謹施工管理，讓陽光重回您的居家生活。立即預約免費丈量與諮詢！">
+    <meta name="keywords" content="桃園室內設計, 桃園老屋翻新, 新宅改造, 空間統包工程, 廚房改造, 大理石電視牆, 室內裝修, 沐光方寸">
+    <meta name="author" content="沐光方寸空間工程">
+    
+    <!-- Open Graph / 社交媒體分享預覽設定 -->
+    <meta property="og:title" content="沐光方寸空間工程 | 老屋翻新與新宅改造專家">
+    <meta property="og:description" content="專注舊屋翻新、採光格局優化、極致收納與透明統包工程。點擊查看精選空間作品與預約諮詢。">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_TW">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -142,6 +154,8 @@
             padding: 12px 28px;
             border-radius: 6px;
             font-weight: 600;
+            display: inline-block;
+            text-align: center;
         }
 
         .btn-primary:hover {
@@ -154,10 +168,24 @@
             padding: 12px 28px;
             border-radius: 6px;
             font-weight: 600;
+            display: inline-block;
         }
 
         .btn-secondary:hover {
             background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-line {
+            background-color: #06C755;
+            color: var(--white);
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn-line:hover {
+            background-color: #05b24c;
         }
 
         /* 通用 Section 樣式 */
@@ -443,53 +471,66 @@
             color: var(--text-muted);
         }
 
-        /* 聯絡我們與表單區塊 */
+        /* 聯絡我們與預約跳轉按鈕區塊 */
         .contact-container {
             background: var(--white);
             border-radius: 16px;
-            padding: 45px;
+            padding: 50px;
             box-shadow: var(--card-shadow);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: start;
+            max-width: 850px;
+            margin: 0 auto;
             border: 1px solid rgba(0, 0, 0, 0.03);
         }
 
-        .contact-info h2 {
-            font-size: 1.85rem;
+        .contact-content-center {
+            text-align: center;
+        }
+
+        .contact-content-center h2 {
+            font-size: 2rem;
             margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .contact-content-center p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 35px;
+        }
+
+        .contact-grid-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            text-align: left;
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 35px;
         }
 
         .contact-detail-item {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .contact-detail-item strong {
             display: block;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
+            margin-bottom: 2px;
         }
 
         .contact-detail-item span {
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: var(--primary-color);
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        .form-wrapper {
-            width: 100%;
-            height: 600px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            background: #fff;
-        }
-
-        .form-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        .contact-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         /* 頁尾 */
@@ -502,15 +543,6 @@
         }
 
         /* RWD 響應式調整 */
-        @media (max-width: 900px) {
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-            .form-wrapper {
-                height: 550px;
-            }
-        }
-
         @media (max-width: 768px) {
             .about-grid {
                 grid-template-columns: 1fr;
@@ -520,6 +552,13 @@
             }
             nav {
                 display: none;
+            }
+            .contact-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .contact-actions a {
+                width: 100%;
             }
         }
     </style>
@@ -551,7 +590,7 @@
         </div>
     </section>
 
-    <!-- 關於我們區塊（已修正圖片路徑為 images/extra-living-kitchen.jpg） -->
+    <!-- 關於我們區塊 -->
     <section id="about">
         <div class="about-grid">
             <div class="about-content">
@@ -615,7 +654,7 @@
         </div>
         <div class="portfolio-grid">
 
-            <!-- 1. 單獨廚房（index.files/image009.jpg 與 image011.jpg 雙視角） -->
+            <!-- 1. 單獨廚房 -->
             <div class="portfolio-card">
                 <div class="img-container" onclick="openModal(document.getElementById('kit-main-img').src)">
                     <img id="kit-main-img" class="main-img" src="index.files/image009.jpg" alt="俐落明亮 U 型獨立廚房">
@@ -632,7 +671,7 @@
                 </div>
             </div>
 
-            <!-- 2. 中島廚房與開放式餐廚客廳（index.files/image002.jpg 與 image007.jpg 雙視角） -->
+            <!-- 2. 中島廚房與開放式餐廚客廳 -->
             <div class="portfolio-card">
                 <div class="img-container" onclick="openModal(document.getElementById('openkit-main-img').src)">
                     <img id="openkit-main-img" class="main-img" src="index.files/image002.jpg" alt="開放餐廚與中島客廳空間">
@@ -649,7 +688,7 @@
                 </div>
             </div>
 
-            <!-- 3. 大理石紋電視牆與多功能收納（index.files/image004.jpg 與 image005.jpg 雙視角） -->
+            <!-- 3. 大理石紋電視牆與多功能收納 -->
             <div class="portfolio-card">
                 <div class="img-container" onclick="openModal(document.getElementById('tv-main-img').src)">
                     <img id="tv-main-img" class="main-img" src="index.files/image004.jpg" alt="大理石紋電視牆與多功能收納">
@@ -666,7 +705,7 @@
                 </div>
             </div>
 
-            <!-- 4. 主臥室房型 A（images/bedroom-01 與 bedroom-02 雙視角） -->
+            <!-- 4. 主臥室房型 A -->
             <div class="portfolio-card">
                 <div class="img-container" onclick="openModal(document.getElementById('bed1-main-img').src)">
                     <img id="bed1-main-img" class="main-img" src="images/bedroom-01.jpg" alt="現代奶咖風明亮主臥">
@@ -683,7 +722,7 @@
                 </div>
             </div>
 
-            <!-- 5. 主臥室房型 B（images/bedroom-03 與 bedroom-04 雙視角） -->
+            <!-- 5. 主臥室房型 B -->
             <div class="portfolio-card">
                 <div class="img-container" onclick="openModal(document.getElementById('bed2-main-img').src)">
                     <img id="bed2-main-img" class="main-img" src="images/bedroom-03.jpg" alt="深木紋奢華靜謐主臥">
@@ -750,38 +789,37 @@
         </div>
     </section>
 
-    <!-- 預約諮詢與聯絡表單嵌入區塊 -->
+    <!-- 預約諮詢與聯絡表單按鈕跳轉區塊 -->
     <section id="contact">
         <div class="contact-container">
-            <div class="contact-info">
+            <div class="contact-content-center">
                 <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">BOOK A CONSULTATION</div>
                 <h2>開啟您的老屋與新宅煥新之旅</h2>
-                <p style="color: var(--text-muted); margin-bottom: 25px;">歡迎聯繫我們，直接於下方填寫表單或透過 LINE 安排現場丈量。</p>
+                <p>歡迎聯繫我們，填寫表單或透過 LINE 安排現場丈量與需求討論。</p>
                 
-                <div class="contact-detail-item">
-                    <strong>營業項目</strong>
-                    <span>室內裝修業 / 空間改造統包工程</span>
+                <div class="contact-grid-info">
+                    <div class="contact-detail-item">
+                        <strong>營業項目</strong>
+                        <span>室內裝修業 / 空間改造統包工程</span>
+                    </div>
+                    <div class="contact-detail-item">
+                        <strong>諮詢 LINE ID</strong>
+                        <span>coolbear761015</span>
+                    </div>
+                    <div class="contact-detail-item">
+                        <strong>公司地址</strong>
+                        <span>桃園市楊梅區永美路445巷122弄8號</span>
+                    </div>
+                    <div class="contact-detail-item">
+                        <strong>營業時間</strong>
+                        <span>週一至週六 09:00 - 18:00 (預約制)</span>
+                    </div>
                 </div>
-                <div class="contact-detail-item">
-                    <strong>諮詢 LINE</strong>
-                    <span>coolbear761015</span>
-                </div>
-                <div class="contact-detail-item">
-                    <strong>公司地址</strong>
-                    <span>桃園市楊梅區永美路445巷122弄8號</span>
-                </div>
-                <div class="contact-detail-item">
-                    <strong>營業時間</strong>
-                    <span>週一至週六 09:00 - 18:00 (預約制)</span>
-                </div>
-                <div style="margin-top: 25px;">
-                    <a href="https://line.me/ti/p/~coolbear761015" target="_blank" class="btn-primary" style="padding: 12px 28px; font-size: 1rem; display: inline-block;">點此加 LINE 諮詢</a>
-                </div>
-            </div>
 
-            <!-- 嵌入 Google 表單 (免跳轉畫面) -->
-            <div class="form-wrapper">
-                <iframe src="https://forms.gle/e5HkUan47CKkWNYR9" title="客戶資料表單填寫">載入中…</iframe>
+                <div class="contact-actions">
+                    <a href="https://forms.gle/e5HkUan47CKkWNYR9" target="_blank" class="btn-primary" style="padding: 14px 32px; font-size: 1.05rem;">📝 填寫客戶資料預約表單</a>
+                    <a href="https://line.me/ti/p/~coolbear761015" target="_blank" class="btn-line" style="padding: 14px 32px; font-size: 1.05rem;">💬 LINE 即時線上諮詢</a>
+                </div>
             </div>
         </div>
     </section>
