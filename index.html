@@ -91,7 +91,7 @@
             background-color: var(--accent-color);
         }
 
-        /* Hero 主視覺區塊（明亮背景） */
+        /* Hero 主視覺區塊 */
         .hero {
             position: relative;
             padding: 140px 5% 120px;
@@ -178,7 +178,7 @@
             margin-top: 8px;
         }
 
-        /* 關於我們（雙欄左字右圖） */
+        /* 關於我們 */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -229,10 +229,10 @@
             margin-bottom: 0;
         }
 
-        /* 四大核心優勢（Grid 卡片） */
+        /* 三大核心優勢（已移除結構安全項） */
         .advantages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
 
@@ -277,7 +277,7 @@
             font-weight: 600;
         }
 
-        /* 作品集美化排版 (Portfolio Grid) */
+        /* 作品集卡片與多圖縮圖切換 */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -300,15 +300,62 @@
             box-shadow: var(--card-hover-shadow);
         }
 
-        .portfolio-card img {
+        .img-container {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .portfolio-card img.main-img {
             width: 100%;
             height: 250px;
             object-fit: cover;
+            display: block;
             transition: transform 0.4s ease;
         }
 
-        .portfolio-card:hover img {
+        .img-container:hover img.main-img {
             transform: scale(1.03);
+        }
+
+        .img-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .img-container:hover .img-overlay {
+            opacity: 1;
+        }
+
+        /* 多圖縮圖區 */
+        .thumb-list {
+            display: flex;
+            gap: 8px;
+            padding: 12px 20px 0;
+        }
+
+        .thumb-list img {
+            width: 60px;
+            height: 45px;
+            border-radius: 4px;
+            cursor: pointer;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .thumb-list img:hover, .thumb-list img.active {
+            opacity: 1;
+            border: 2px solid var(--accent-color);
         }
 
         .portfolio-info {
@@ -336,6 +383,31 @@
             font-size: 0.92rem;
             color: var(--text-muted);
             line-height: 1.7;
+        }
+
+        /* Lightbox 放大彈窗 */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-modal img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 35px;
+            color: #fff; font-size: 40px; font-weight: bold;
+            cursor: pointer;
         }
 
         /* 服務流程 */
@@ -438,24 +510,24 @@
         <nav>
             <a href="#about">關於我們</a>
             <a href="#advantages">服務優勢</a>
-            <a href="#portfolio">全屋作品展示</a>
+            <a href="#portfolio">精選作品展示</a>
             <a href="#process">服務流程</a>
             <a href="#contact" class="btn-nav">預約諮詢</a>
         </nav>
     </header>
 
-    <!-- Hero 主視覺區塊（明亮背景） -->
+    <!-- Hero 主視覺區塊 -->
     <section class="hero">
         <div class="sub-tag">老屋翻新．新宅改造．光影重塑專家</div>
         <h1>沐光而生，方寸至美</h1>
         <p>專注老屋翻新與新宅改造室內裝修工程，賦予舊建築溫暖、明亮且實用的新生命。打破沉悶格局，讓陽光再次溫柔棲居於家的每個角落。</p>
         <div class="hero-btns">
             <a href="#contact" class="btn-primary">預約老屋諮詢</a>
-            <a href="#portfolio" class="btn-secondary">瀏覽改造案例</a>
+            <a href="#portfolio" class="btn-secondary">瀏覽精選作品</a>
         </div>
     </section>
 
-    <!-- 關於我們區塊（左字右圖） -->
+    <!-- 關於我們區塊（右側改放 extra-living-kitchen 圖片） -->
     <section id="about">
         <div class="about-grid">
             <div class="about-content">
@@ -476,25 +548,19 @@
                 </div>
             </div>
             <div class="about-image">
-                <img src="index.files/image004.jpg" alt="沐光方寸設計實景">
+                <img src="index.files/extra-living-kitchen.jpg" alt="沐光方寸設計實景" onclick="openModal(this.src)" style="cursor: pointer;">
             </div>
         </div>
     </section>
 
-    <!-- 四大核心優勢區塊 -->
+    <!-- 三大核心優勢區塊（已移除結構安全與基礎工程項目） -->
     <section id="advantages">
         <div class="section-header">
             <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem;">CORE ADVANTAGES</div>
-            <h2>四大核心優勢，嚴謹守護您的家</h2>
-            <p style="color: var(--text-muted); margin-top: 8px;">專攻老屋‧新宅改造難題，從基礎工程到收納與軟裝配置，提供一站式安心統包。</p>
+            <h2>核心優勢，嚴謹守護您的家</h2>
+            <p style="color: var(--text-muted); margin-top: 8px;">專攻老屋‧新宅改造難題，從採光格局到收納與施工管理，提供一站式安心統包。</p>
         </div>
         <div class="advantages-grid">
-            <div class="adv-card">
-                <div class="adv-icon">🛡️</div>
-                <h3>結構安全與基礎工程</h3>
-                <p>老屋‧新宅徹底總檢！重做全室水電管線，築造長久安心防護。</p>
-                <span class="adv-tag">基礎重建 ‧ 安心耐用</span>
-            </div>
             <div class="adv-card">
                 <div class="adv-icon">☀️</div>
                 <h3>光影與採光格局優化</h3>
@@ -516,107 +582,108 @@
         </div>
     </section>
 
-    <!-- 裝修案例作品展示（精準保留所有圖片與分類） -->
+    <!-- 空間作品展示區塊（精準對應所有圖片與多視角房型） -->
     <section id="portfolio">
         <div class="section-header">
             <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem;">RENOVATION PORTFOLIO</div>
-            <h2>全屋空間改造與作品展示</h2>
-            <p style="color: var(--text-muted); margin-top: 8px;">包含房間臥室、客廳、開放式餐廚與獨立廚房等實際作品展示。</p>
+            <h2>精選室內空間作品展示</h2>
+            <p style="color: var(--text-muted); margin-top: 8px;">點擊縮圖可切換不同拍攝角度，點擊大圖可放大觀看高清細節。</p>
         </div>
         <div class="portfolio-grid">
 
-            <!-- 1. 玄關空間 -->
+            <!-- 1. 單獨廚房（image009.jpg 與 image011.jpg 雙視角） -->
             <div class="portfolio-card">
-                <img src="index.files/image001.jpg" alt="玄關落塵區與穿透視覺">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">玄關空間</span>
-                    <h3>落塵玄關與通透視角</h3>
-                    <p>巧妙打造入場緩衝，結合穿透感材質引光入室，呈現大氣明亮的開闊迎賓感。</p>
+                <div class="img-container" onclick="openModal(document.getElementById('kit-main-img').src)">
+                    <img id="kit-main-img" class="main-img" src="index.files/image009.jpg" alt="俐落明亮 U 型獨立廚房">
+                    <div class="img-overlay">🔍 點擊放大觀看細節</div>
                 </div>
-            </div>
-
-            <!-- 2. 房間臥室：電視牆與多功能收納 -->
-            <div class="portfolio-card">
-                <img src="index.files/image002.jpg" alt="房間電視主牆與收納櫃">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">房間臥室空間</span>
-                    <h3>大理石紋電視牆與多功能收納</h3>
-                    <p>淺色石紋、灰木紋門板與開放式展示櫃，將房間內的收納機能與視覺美感完美融為一體。</p>
+                <div class="thumb-list">
+                    <img src="index.files/image009.jpg" class="active" onclick="switchImage('kit-main-img', this)" title="視角一">
+                    <img src="index.files/image011.jpg" onclick="switchImage('kit-main-img', this)" title="視角二">
                 </div>
-            </div>
-
-            <!-- 3. 房間臥室：沙發休憩區 -->
-            <div class="portfolio-card">
-                <img src="index.files/image003.jpg" alt="房間沙發與休憩區域">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">房間臥室空間</span>
-                    <h3>舒適休閒沙發與軟裝搭配</h3>
-                    <p>精選大地色系柔軟沙發與茶几，於房間內規劃私密放鬆的休閒角落。</p>
-                </div>
-            </div>
-
-            <!-- 4. 房間臥室：溫潤現代風格房間全景 -->
-            <div class="portfolio-card">
-                <img src="index.files/image004.jpg" alt="溫潤現代風格房間">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">房間臥室空間</span>
-                    <h3>溫潤現代風格房間全景</h3>
-                    <p>暖灰色布藝沙發搭配隱藏式線性光源與造型吊燈，呈現通透、自然且無壓力的私人居住質感。</p>
-                </div>
-            </div>
-
-            <!-- 5. 開放式餐廚一體 -->
-            <div class="portfolio-card">
-                <img src="index.files/image005.jpg" alt="開放式客餐廚一體">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">開放餐廚空間</span>
-                    <h3>客餐廚連貫光影動線</h3>
-                    <p>打破空間界線，將客廳、餐廳與料理區連成一氣，打造流暢的大坪數視覺感。</p>
-                </div>
-            </div>
-
-            <!-- 6. 主臥室：衣櫃系統 -->
-            <div class="portfolio-card">
-                <img src="index.files/image006.jpg" alt="主臥室質感套房">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">主臥室空間</span>
-                    <h3>靜謐主臥與衣櫃系統整合</h3>
-                    <p>一體化系統衣櫃與沉穩色調配置，兼具強大收納能力與舒眠氛圍。</p>
-                </div>
-            </div>
-
-            <!-- 7. 開放式中島酒吧廚房 -->
-            <div class="portfolio-card">
-                <img src="index.files/image007.jpg" alt="開放式客餐廚與中島空間">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">開放廚房空間</span>
-                    <h3>開放式中島吧台與現代廚房</h3>
-                    <p>配置大理石中島吧台與工業風造型吊燈，成為親友聚會與享受料理的核心區域。</p>
-                </div>
-            </div>
-
-            <!-- 8. 主臥室：木質格柵主牆 -->
-            <div class="portfolio-card">
-                <img src="index.files/image008.jpg" alt="靜謐舒眠主臥室格柵牆">
-                <div class="portfolio-info">
-                    <span class="portfolio-category">主臥室空間</span>
-                    <h3>木質格柵床頭與溫暖間接光</h3>
-                    <p>利用細緻木格柵與柔和床頭燈光，堆疊出富有層次感的溫暖私人睡眠場域。</p>
-                </div>
-            </div>
-
-            <!-- 9. 獨立 U 型明亮廚房 -->
-            <div class="portfolio-card">
-                <img src="index.files/image009.jpg" alt="獨立 U 型明亮廚房">
                 <div class="portfolio-info">
                     <span class="portfolio-category">獨立廚房空間</span>
                     <h3>俐落明亮 U 型獨立廚房</h3>
-                    <p>配置簡潔檯面與三面收納櫃，發揮黃金料理三角動線，極致防油煙與好清潔。</p>
+                    <p>配置簡潔檯面與三面收納櫃，發揮黃金料理三角動線，極致防油煙與好清潔。（下方可切換拍攝角度）</p>
+                </div>
+            </div>
+
+            <!-- 2. 中島廚房與開放式餐廚客廳（image002.jpg 與 image007.jpg 雙視角） -->
+            <div class="portfolio-card">
+                <div class="img-container" onclick="openModal(document.getElementById('openkit-main-img').src)">
+                    <img id="openkit-main-img" class="main-img" src="index.files/image002.jpg" alt="開放餐廚與中島客廳空間">
+                    <div class="img-overlay">🔍 點擊放大觀看細節</div>
+                </div>
+                <div class="thumb-list">
+                    <img src="index.files/image002.jpg" class="active" onclick="switchImage('openkit-main-img', this)" title="視角一">
+                    <img src="index.files/image007.jpg" onclick="switchImage('openkit-main-img', this)" title="視角二">
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">開放餐廚與客廳空間</span>
+                    <h3>開放餐廚與中島客廳空間</h3>
+                    <p>結合大理石中島吧台與客廳連貫光影動線，打造通透且凝聚情感的大器互動核心。（下方可切換拍攝角度）</p>
+                </div>
+            </div>
+
+            <!-- 3. 大理石紋電視牆與多功能收納（image004.jpg 與 image005.jpg 雙視角） -->
+            <div class="portfolio-card">
+                <div class="img-container" onclick="openModal(document.getElementById('tv-main-img').src)">
+                    <img id="tv-main-img" class="main-img" src="images/image004.jpg" alt="大理石紋電視牆與多功能收納">
+                    <div class="img-overlay">🔍 點擊放大觀看細節</div>
+                </div>
+                <div class="thumb-list">
+                    <img src="images/image004.jpg" class="active" onclick="switchImage('tv-main-img', this)" title="視角一">
+                    <img src="images/image005.jpg" onclick="switchImage('tv-main-img', this)" title="視角二">
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">客廳電視牆空間</span>
+                    <h3>大理石紋電視牆與多功能收納</h3>
+                    <p>精選大理石紋理與溫潤木質櫃體結合，兼具極佳視覺質感與強大日常收納機能。（下方可切換拍攝角度）</p>
+                </div>
+            </div>
+
+            <!-- 4. 主臥室房型 A（bedroom-01 與 bedroom-02 雙視角） -->
+            <div class="portfolio-card">
+                <div class="img-container" onclick="openModal(document.getElementById('bed1-main-img').src)">
+                    <img id="bed1-main-img" class="main-img" src="index.files/bedroom-01.jpg" alt="現代奶咖風明亮主臥">
+                    <div class="img-overlay">🔍 點擊放大觀看細節</div>
+                </div>
+                <div class="thumb-list">
+                    <img src="index.files/bedroom-01.jpg" class="active" onclick="switchImage('bed1-main-img', this)" title="視角一">
+                    <img src="index.files/bedroom-02.jpg" onclick="switchImage('bed1-main-img', this)" title="視角二">
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">主臥室空間</span>
+                    <h3>現代奶咖風明亮主臥</h3>
+                    <p>柔和米灰色調結合天花板圓弧間接照明，搭配客製化收納櫃與化妝台，打造明亮開闊的舒眠氛圍。（下方可切換拍攝角度）</p>
+                </div>
+            </div>
+
+            <!-- 5. 主臥室房型 B（bedroom-03 與 bedroom-04 雙視角） -->
+            <div class="portfolio-card">
+                <div class="img-container" onclick="openModal(document.getElementById('bed2-main-img').src)">
+                    <img id="bed2-main-img" class="main-img" src="index.files/bedroom-03.jpg" alt="深木紋奢華靜謐主臥">
+                    <div class="img-overlay">🔍 點擊放大觀看細節</div>
+                </div>
+                <div class="thumb-list">
+                    <img src="index.files/bedroom-03.jpg" class="active" onclick="switchImage('bed2-main-img', this)" title="視角一">
+                    <img src="index.files/bedroom-04.jpg" onclick="switchImage('bed2-main-img', this)" title="視角二">
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">主臥室空間</span>
+                    <h3>深木紋奢華靜謐主臥</h3>
+                    <p>運用深色木質感系統衣櫃與床頭圓弧造型光帶，築造沉穩放鬆且極具奢華質感的私人睡眠場域。（下方可切換拍攝角度）</p>
                 </div>
             </div>
 
         </div>
     </section>
+
+    <!-- Lightbox 圖片放大彈窗 -->
+    <div id="lightbox" class="lightbox-modal" onclick="closeModal()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="放大預覽照片">
+    </div>
 
     <!-- 服務流程區塊 -->
     <section id="process">
@@ -694,6 +761,27 @@
     <footer>
         <p>&copy; 沐光方寸空間工程 版權所有. All Rights Reserved.</p>
     </footer>
+
+    <!-- JavaScript 圖片切換與放大功能 -->
+    <script>
+        function switchImage(targetImgId, thumbEl) {
+            document.getElementById(targetImgId).src = thumbEl.src;
+            let siblings = thumbEl.parentElement.children;
+            for (let i = 0; i < siblings.length; i++) {
+                siblings[i].classList.remove('active');
+            }
+            thumbEl.classList.add('active');
+        }
+
+        function openModal(imgSrc) {
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>
