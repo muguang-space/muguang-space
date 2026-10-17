@@ -90,13 +90,13 @@
             background-color: var(--accent-color);
         }
 
-        /* Hero 主視覺區塊（帶背景圖與半透明遮罩） */
+        /* Hero 主視覺區塊（已調亮半透明遮罩至 0.25） */
         .hero {
             position: relative;
             padding: 140px 5% 120px;
             text-align: center;
             color: #FFFFFF;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('images/hero-bg.jpg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('images/hero-bg.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -148,15 +148,15 @@
         }
 
         .btn-secondary {
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
+            border: 1px solid #FFFFFF;
+            color: #FFFFFF;
             padding: 12px 28px;
             border-radius: 6px;
             font-weight: 600;
         }
 
         .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         /* 通用 Section 樣式 */
@@ -273,7 +273,7 @@
             font-weight: 600;
         }
 
-        /* 裝修案例 */
+        /* 裝修案例與房間介紹 */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -440,20 +440,20 @@
         <nav>
             <a href="#about">關於我們</a>
             <a href="#advantages">服務優勢</a>
-            <a href="#portfolio">裝修案例</a>
+            <a href="#portfolio">房間介紹與作品</a>
             <a href="#process">服務流程</a>
             <a href="#contact" class="btn-nav">預約諮詢</a>
         </nav>
     </header>
 
-    <!-- Hero 主視覺區塊（帶背景圖與半透明遮罩） -->
+    <!-- Hero 主視覺區塊（明亮背景） -->
     <section class="hero">
         <div class="sub-tag">老屋翻新．新宅改造．光影重塑專家</div>
         <h1>沐光而生，方寸至美</h1>
         <p>專注老屋翻新與新宅改造室內裝修工程，賦予舊建築溫暖、明亮且實用的新生命。打破沉悶格局，讓陽光再次溫柔棲居於家的每個角落。</p>
         <div class="hero-btns">
             <a href="#contact" class="btn-primary">預約老屋諮詢</a>
-            <a href="#portfolio" class="btn-secondary" style="color: #fff; border-color: #fff;">瀏覽改造案例</a>
+            <a href="#portfolio" class="btn-secondary">瀏覽改造案例</a>
         </div>
     </section>
 
@@ -518,35 +518,39 @@
         </div>
     </section>
 
-    <!-- 裝修案例區塊 -->
+    <!-- 裝修案例與房間介紹區塊 -->
     <section id="portfolio">
         <div class="section-header">
             <div class="sub-tag" style="color: var(--accent-color); font-weight: 600; font-size: 0.85rem; margin-bottom: 5px;">RENOVATION PORTFOLIO</div>
-            <h2>空間規劃案例</h2>
+            <h2>住宅改造與房間空間介紹</h2>
+            <p style="color: var(--text-muted);">專為一般住家規劃的原創作品展示，呈現溫馨、明亮且充滿質感的住宅空間。</p>
         </div>
         <div class="portfolio-grid">
+            <!-- 1. 客廳空間介紹 -->
             <div class="portfolio-card">
-                <img src="index.files/image004.jpg" alt="客廳電視主牆與收納">
+                <img src="index.files/image004.jpg" alt="溫潤現代風格客廳">
                 <div class="portfolio-info">
                     <span class="portfolio-category">客廳空間</span>
-                    <h3>大理石紋主牆與系統收納</h3>
-                    <p>淺色石紋、灰木紋櫃體與玻璃展示櫃，呈現明亮俐落的居家氛圍。</p>
+                    <h3>溫潤現代風格客廳</h3>
+                    <p>採用暖灰色布藝沙發與質感木質/大理石茶幾，搭配隱藏式線性光源與造型吊燈，營造通透、自然且無壓力的居住氣氛。</p>
                 </div>
             </div>
+            <!-- 2. 主臥室空間介紹 -->
             <div class="portfolio-card">
-                <img src="index.files/image007.jpg" alt="開放式客餐廚空間">
+                <img src="index.files/image007.jpg" alt="靜謐舒眠主臥室">
                 <div class="portfolio-info">
-                    <span class="portfolio-category">客餐廚空間</span>
-                    <h3>開放式客餐廚空間</h3>
-                    <p>利用自然採光與開放配置，讓客廳及餐廚區域更通透流暢。</p>
+                    <span class="portfolio-category">主臥室空間</span>
+                    <h3>靜謐舒眠主臥室</h3>
+                    <p>結合木質格柵主牆、柔美間接照明與床頭低調壁燈，選用大地色系亞麻軟裝，築造出靜謐放鬆的私人睡眠場域。</p>
                 </div>
             </div>
+            <!-- 3. 餐廚空間介紹 -->
             <div class="portfolio-card">
-                <img src="index.files/image009.jpg" alt="俐落明亮的廚房配置">
+                <img src="index.files/image009.jpg" alt="開放式客餐廚空間">
                 <div class="portfolio-info">
-                    <span class="portfolio-category">廚房空間</span>
-                    <h3>俐落明亮的廚房配置</h3>
-                    <p>以淺色櫃體與簡潔檯面呈現易於整理的料理空間。</p>
+                    <span class="portfolio-category">餐廚空間</span>
+                    <h3>俐落明亮餐廚與開放配置</h3>
+                    <p>以淺色櫃體與簡潔檯面呈現易於整理的料理空間，利用自然採光與開放配置讓餐廚區域更通透流暢。</p>
                 </div>
             </div>
         </div>
