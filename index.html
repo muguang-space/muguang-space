@@ -1104,37 +1104,20 @@
                     </a>
                 </div>
 
-                <form id="consult-form" class="consult-form"
-                      action="https://docs.google.com/forms/d/e/1FAIpQLSfjV5GQsv1JVAKNOVWI-VohrJqNv6ooqi84RsyaL-Zy3CPXiQ/formResponse"
-                      method="POST" target="_blank" accept-charset="UTF-8" hidden>
-                    <div class="form-field">
-                        <label for="consult-name">姓名 <span class="required-mark">*</span></label>
-                        <input id="consult-name" name="entry.1434360949" type="text" autocomplete="name" required>
-                    </div>
-                    <div class="form-field">
-                        <label for="consult-phone">聯絡電話 <span class="required-mark">*</span></label>
-                        <input id="consult-phone" name="entry.762825068" type="tel" autocomplete="tel" required>
-                    </div>
-                    <div class="form-field">
-                        <label for="consult-address">地區與住址 <span class="required-mark">*</span></label>
-                        <input id="consult-address" name="entry.1432387356" type="text" autocomplete="street-address" required>
-                    </div>
-                    <div class="form-field">
-                        <label for="consult-needs">老屋與新宅需求 <span class="required-mark">*</span></label>
-                        <textarea id="consult-needs" name="entry.670877146" required></textarea>
-                    </div>
-                    <div class="form-field">
-                        <label for="consult-budget">預估總預算區間 <span class="required-mark">*</span></label>
-                        <select id="consult-budget" name="entry.1996949655" required>
-                            <option value="">請選擇預算區間</option>
-                            <option value="10萬~50萬">10萬~50萬</option>
-                            <option value="50萬~100萬">50萬~100萬</option>
-                            <option value="100萬~200萬">100萬~200萬</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-primary form-submit" style="padding:14px 24px;">送出諮詢資料</button>
-                    <p class="form-note">送出後會開啟 Google 表單頁面，請確認頁面顯示已記錄您的回覆。</p>
-                </form>
+                <div id="consult-form" class="consult-form" hidden>
+                    <iframe
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSfjV5GQsv1JVAKNOVWI-VohrJqNv6ooqi84RsyaL-Zy3CPXiQ/viewform?embedded=true"
+                        title="沐光方寸空間工程房屋改造諮詢表單"
+                        width="100%"
+                        height="1100"
+                        frameborder="0"
+                        marginheight="0"
+                        marginwidth="0"
+                        loading="lazy"
+                        style="border:0;max-width:100%;background:#fff;">
+                        載入中…
+                    </iframe>
+                </div>
 
             </div>
         </div>
