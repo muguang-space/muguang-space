@@ -591,6 +591,20 @@
             flex-wrap: wrap;
         }
 
+        /* 自訂展開式諮詢表單 */
+        .consult-toggle { border: 0; cursor: pointer; font: inherit; }
+        .consult-form { max-width: 680px; margin: 28px auto 0; padding: 28px; background: var(--bg-light); border-radius: 12px; text-align: left; }
+        .consult-form[hidden] { display: none !important; }
+        .consult-form .form-field { margin-bottom: 18px; }
+        .consult-form label { display: block; margin-bottom: 7px; color: var(--primary-color); font-weight: 600; }
+        .consult-form input, .consult-form textarea, .consult-form select { width: 100%; padding: 12px 14px; border: 1px solid #D8D0C9; border-radius: 6px; background: #fff; color: var(--text-dark); font: inherit; }
+        .consult-form textarea { min-height: 120px; resize: vertical; }
+        .consult-form input:focus, .consult-form textarea:focus, .consult-form select:focus { outline: 2px solid var(--accent-color); outline-offset: 1px; }
+        .consult-form .required-mark { color: #A33; }
+        .consult-form .form-submit { width: 100%; border: 0; cursor: pointer; font: inherit; }
+        .consult-form .form-note { margin-top: 14px; color: var(--text-muted); font-size: .88rem; }
+        @media (max-width: 768px) { .consult-form { padding: 20px 16px; } }
+
         footer {
             background-color: var(--primary-color);
             color: rgba(255,255,255,.7);
@@ -1078,22 +1092,49 @@
                 </div>
 
                 <div class="contact-actions">
-                    <a href="https://forms.gle/e5HkUan47CKkWNYR9"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="btn-primary"
-                       style="padding:14px 32px;font-size:1.05rem;">
-                        📝 填寫客戶資料預約表單
-                    </a>
-
+                    <button type="button" id="consult-form-toggle" class="btn-primary consult-toggle"
+                            style="padding:14px 32px;font-size:1.05rem;"
+                            aria-expanded="false" aria-controls="consult-form">
+                        📝 填寫聯絡資訊取得詳細報價
+                    </button>
                     <a href="https://line.me/ti/p/~coolbear761015"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="btn-line"
+                       target="_blank" rel="noopener noreferrer" class="btn-line"
                        style="padding:14px 32px;font-size:1.05rem;">
                         💬 LINE 即時線上諮詢
                     </a>
                 </div>
+
+                <form id="consult-form" class="consult-form"
+                      action="https://docs.google.com/forms/d/e/1FAIpQLSfjV5GQsv1JVAKNOVWI-VohrJqNv6ooqi84RsyaL-Zy3CPXiQ/formResponse"
+                      method="POST" target="_blank" accept-charset="UTF-8" hidden>
+                    <div class="form-field">
+                        <label for="consult-name">姓名 <span class="required-mark">*</span></label>
+                        <input id="consult-name" name="entry.1434360949" type="text" autocomplete="name" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="consult-phone">聯絡電話 <span class="required-mark">*</span></label>
+                        <input id="consult-phone" name="entry.762825068" type="tel" autocomplete="tel" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="consult-address">地區與住址 <span class="required-mark">*</span></label>
+                        <input id="consult-address" name="entry.1432387356" type="text" autocomplete="street-address" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="consult-needs">老屋與新宅需求 <span class="required-mark">*</span></label>
+                        <textarea id="consult-needs" name="entry.670877146" required></textarea>
+                    </div>
+                    <div class="form-field">
+                        <label for="consult-budget">預估總預算區間 <span class="required-mark">*</span></label>
+                        <select id="consult-budget" name="entry.1996949655" required>
+                            <option value="">請選擇預算區間</option>
+                            <option value="10萬~50萬">10萬~50萬</option>
+                            <option value="50萬~100萬">50萬~100萬</option>
+                            <option value="100萬~200萬">100萬~200萬</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary form-submit" style="padding:14px 24px;">送出諮詢資料</button>
+                    <p class="form-note">送出後會開啟 Google 表單頁面，請確認頁面顯示已記錄您的回覆。</p>
+                </form>
 
             </div>
         </div>
@@ -1104,6 +1145,19 @@
     </footer>
 
     <script>
+        // 展開／收合網站內的諮詢表單
+        const consultToggle = document.getElementById('consult-form-toggle');
+        const consultForm = document.getElementById('consult-form');
+        if (consultToggle && consultForm) {
+            consultToggle.addEventListener('click', function() {
+                const willOpen = consultForm.hidden;
+                consultForm.hidden = !willOpen;
+                consultToggle.setAttribute('aria-expanded', String(willOpen));
+                consultToggle.textContent = willOpen ? '收合聯絡表單' : '📝 填寫聯絡資訊取得詳細報價';
+                if (willOpen) consultForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+
         // 切換作品縮圖
         function switchImage(mainImgId, titleId, descId, thumbEl, newTitle, newDesc) {
 
