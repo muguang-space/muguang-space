@@ -635,7 +635,72 @@
                 width: 100%;
             }
         }
-    </style>
+    
+        /* 後台管理影片展示 */
+        .managed-video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .managed-video-card {
+            min-width: 0;
+            overflow: hidden;
+            background: var(--white);
+            border: 1px solid rgba(0,0,0,.06);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+        }
+        .managed-video-card video {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #171717;
+            object-fit: contain;
+        }
+        .managed-video-info { padding: 20px 22px 22px; }
+        .managed-video-category {
+            display: inline-block;
+            margin-bottom: 9px;
+            padding: 4px 10px;
+            color: var(--primary-color);
+            background: rgba(190, 164, 119, .16);
+            border-radius: 999px;
+            font-size: .82rem;
+        }
+        .managed-video-info h3 {
+            margin: 0 0 9px;
+            color: var(--primary-color);
+            font-size: 1.12rem;
+            line-height: 1.5;
+        }
+        .managed-video-info p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: .94rem;
+            line-height: 1.75;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+        .managed-video-duration {
+            display: block;
+            margin-top: 12px;
+            color: var(--text-muted);
+            font-size: .8rem;
+        }
+        .video-loading, .video-empty {
+            grid-column: 1 / -1;
+            padding: 28px 16px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .managed-video-grid { gap: 16px; padding: 0 14px; }
+            .managed-video-info { padding: 16px; }
+        }
+</style>
 </head>
 
 <body>
@@ -740,31 +805,19 @@
         </div>
     </section>
 
-    <!-- 影片部分暫時保留原本設定，稍後再處理 -->
+    <!-- 影片內容由私人管理後台即時管理；公開網站僅提供觀看。 -->
     <section id="video-showcase" style="padding-top:20px;">
         <div class="section-header">
             <div class="sub-tag" style="color:var(--accent-color);font-weight:600;font-size:.85rem;">
                 REAL-TIME VIDEO TOUR
             </div>
-
             <h2>現場工程實況與空間全景動態導覽</h2>
             <p style="color:var(--text-muted);margin-top:8px;">
-                點擊播放，帶您深入了解施工細節與完工後的動態空間質感。
+                透過實際影片，了解空間改造過程、施工細節與完工後的生活樣貌。
             </p>
         </div>
-
-        <div class="video-container">
-            <div class="video-wrapper">
-                <video controls poster="index.files/image006.jpg">
-                    <source src="videos/video-01.mp4" type="video/mp4">
-                    您的瀏覽器不支援 HTML5 影片播放。
-                </video>
-            </div>
-
-            <div class="video-info">
-                <h3>精選實境工程與空間流暢質感導覽</h3>
-                <p>透過實境影片感受光影與動線規劃，嚴謹工法成就舒適無壓的完美居家。</p>
-            </div>
+        <div id="managed-video-list" class="managed-video-grid" aria-live="polite">
+            <p class="video-loading">影片內容載入中…</p>
         </div>
     </section>
 
@@ -1211,6 +1264,72 @@
             }
 
         });
+        // 從私人管理後台讀取已上傳影片；此區只提供公開播放，不含管理操作。
+        (async function loadManagedVideos() {
+            const list = document.getElementById('managed-video-list');
+            if (!list) return;
+            const apiBase = 'https://muguang-admin.qazabc0938.workers.dev';
+            try {
+                const response = await fetch(apiBase + '/api/public/videos', { method: 'GET' });
+                if (!response.ok) throw new Error('影片清單暫時無法載入');
+                const videos = await response.json();
+                list.replaceChildren();
+                if (!Array.isArray(videos) || videos.length === 0) {
+                    const empty = document.createElement('p');
+                    empty.className = 'video-empty';
+                    empty.textContent = '影片內容整理中，敬請期待。';
+                    list.appendChild(empty);
+                    return;
+                }
+                videos.forEach(function (item) {
+                    if (!item || typeof item.id !== 'string' || !/^[a-f0-9-]{36}$/i.test(item.id)) return;
+                    const card = document.createElement('article');
+                    card.className = 'managed-video-card';
+                    const player = document.createElement('video');
+                    player.controls = true;
+                    player.playsInline = true;
+                    player.preload = 'metadata';
+                    player.setAttribute('aria-label', item.title || '空間工程影片');
+                    player.src = apiBase + '/api/public/videos/' + encodeURIComponent(item.id) + '/file';
+                    const info = document.createElement('div');
+                    info.className = 'managed-video-info';
+                    const category = document.createElement('span');
+                    category.className = 'managed-video-category';
+                    category.textContent = item.category || '空間紀錄';
+                    const title = document.createElement('h3');
+                    title.textContent = item.title || '空間工程影片';
+                    const description = document.createElement('p');
+                    description.textContent = item.description || '';
+                    const duration = document.createElement('small');
+                    duration.className = 'managed-video-duration';
+                    duration.textContent = '影片播放';
+                    player.addEventListener('loadedmetadata', function () {
+                        if (Number.isFinite(player.duration)) {
+                            const minutes = Math.floor(player.duration / 60);
+                            const seconds = Math.floor(player.duration % 60).toString().padStart(2, '0');
+                            duration.textContent = '影片長度 ' + minutes + ':' + seconds;
+                        }
+                    }, { once: true });
+                    info.append(category, title, description, duration);
+                    card.append(player, info);
+                    list.appendChild(card);
+                });
+                if (!list.children.length) {
+                    const empty = document.createElement('p');
+                    empty.className = 'video-empty';
+                    empty.textContent = '目前沒有可播放的影片。';
+                    list.appendChild(empty);
+                }
+            } catch (error) {
+                console.error('Managed video list failed:', error);
+                list.replaceChildren();
+                const message = document.createElement('p');
+                message.className = 'video-empty';
+                message.textContent = '影片暫時無法載入，請稍後再試。';
+                list.appendChild(message);
+            }
+        })();
+
     </script>
 
 </body>
