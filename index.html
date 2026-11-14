@@ -635,7 +635,15 @@
                 width: 100%;
             }
         }
-    </style>
+            .video-showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px; }
+        .video-showcase-grid .video-container { min-width: 0; }
+        .video-showcase-grid .video-wrapper video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #171717; border-radius: 12px; }
+        .video-showcase-grid .video-info { padding-top: 14px; }
+        .video-showcase-grid .video-info h3 { margin: 7px 0; }
+        .video-showcase-grid .video-info p { white-space: pre-wrap; overflow-wrap: anywhere; }
+        .video-category { display: inline-block; color: var(--accent-color); font-size: .85rem; font-weight: 600; }
+        .video-loading { text-align: center; color: var(--text-muted); padding: 30px 12px; }
+</style>
 </head>
 
 <body>
@@ -746,25 +754,13 @@
             <div class="sub-tag" style="color:var(--accent-color);font-weight:600;font-size:.85rem;">
                 REAL-TIME VIDEO TOUR
             </div>
-
             <h2>現場工程實況與空間全景動態導覽</h2>
             <p style="color:var(--text-muted);margin-top:8px;">
                 點擊播放，帶您深入了解施工細節與完工後的動態空間質感。
             </p>
         </div>
-
-        <div class="video-container">
-            <div class="video-wrapper">
-                <video controls poster="index.files/image006.jpg">
-                    <source src="videos/video-01.mp4" type="video/mp4">
-                    您的瀏覽器不支援 HTML5 影片播放。
-                </video>
-            </div>
-
-            <div class="video-info">
-                <h3>精選實境工程與空間流暢質感導覽</h3>
-                <p>透過實境影片感受光影與動線規劃，嚴謹工法成就舒適無壓的完美居家。</p>
-            </div>
+        <div id="dynamic-video-list" class="video-showcase-grid" aria-live="polite">
+            <p class="video-loading">影片載入中…</p>
         </div>
     </section>
 
@@ -1140,6 +1136,65 @@
                 if (willOpen) consultForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         }
+
+        // 從私人管理後台讀取已發布影片；訪客僅能觀看，無管理操作。
+        (async function loadPublishedVideos() {
+            const container = document.getElementById('dynamic-video-list');
+            if (!container) return;
+            const apiBase = 'https://muguang-admin.qazabc0938.workers.dev';
+            try {
+                const response = await fetch(apiBase + '/api/public/videos', { method: 'GET' });
+                if (!response.ok) throw new Error('影片清單讀取失敗');
+                const videos = await response.json();
+                container.replaceChildren();
+                if (!Array.isArray(videos) || videos.length === 0) {
+                    const empty = document.createElement('p');
+                    empty.className = 'video-loading';
+                    empty.textContent = '目前尚無影片，敬請期待。';
+                    container.appendChild(empty);
+                    return;
+                }
+                videos.forEach(function(item) {
+                    if (!item || !/^[a-f0-9-]{36}$/i.test(String(item.id || ''))) return;
+                    const card = document.createElement('article');
+                    card.className = 'video-container';
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'video-wrapper';
+                    const player = document.createElement('video');
+                    player.controls = true;
+                    player.preload = 'metadata';
+                    player.playsInline = true;
+                    player.setAttribute('aria-label', String(item.title || '工程影片'));
+                    player.src = apiBase + '/api/public/videos/' + encodeURIComponent(item.id) + '/file';
+                    wrapper.appendChild(player);
+                    const info = document.createElement('div');
+                    info.className = 'video-info';
+                    const heading = document.createElement('h3');
+                    heading.textContent = String(item.title || '');
+                    const description = document.createElement('p');
+                    description.textContent = String(item.description || '');
+                    const category = document.createElement('span');
+                    category.className = 'video-category';
+                    category.textContent = String(item.category || '');
+                    info.append(category, heading, description);
+                    card.append(wrapper, info);
+                    container.appendChild(card);
+                });
+                if (!container.children.length) {
+                    const empty = document.createElement('p');
+                    empty.className = 'video-loading';
+                    empty.textContent = '目前沒有可播放的影片。';
+                    container.appendChild(empty);
+                }
+            } catch (error) {
+                console.error('Published video list unavailable:', error);
+                container.replaceChildren();
+                const message = document.createElement('p');
+                message.className = 'video-loading';
+                message.textContent = '影片暫時無法載入，請稍後再試。';
+                container.appendChild(message);
+            }
+        })();
 
         // 切換作品縮圖
         function switchImage(mainImgId, titleId, descId, thumbEl, newTitle, newDesc) {
