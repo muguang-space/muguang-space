@@ -34,7 +34,7 @@ jobs:
             const result = spawnSync(process.execPath, ['--check'], { input: scripts[index], encoding: 'utf8' });
             if (result.status !== 0) throw new Error('Inline script ' + (index + 1) + ' failed syntax check: ' + result.stderr);
           }
-          if (!html.includes('/api/public/site') || !html.includes('/api/public/media/')) {
+          if (!html.includes('/api/public/site') || !html.includes("'/media/'")) {
             throw new Error('The GitHub Pages content sync endpoints are missing.');
           }
           console.log('Validated ' + scripts.length + ' inline scripts and the public content endpoints.');
