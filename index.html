@@ -1320,5 +1320,159 @@
         });
     </script>
 
+    <script>
+        // GitHub Pages remains the public host. The private admin publishes a verified
+        // snapshot to a read-only Worker API; only that snapshot is rendered here.
+        async function loadPublishedSiteContent() {
+            const apiBase = 'https://muguang-admin.qazabc0938.workers.dev/api/public';
+            const response = await fetch(apiBase + '/site', {
+                method: 'GET', headers: { 'Accept': 'application/json' }, cache: 'no-store'
+            });
+            if (!response.ok) throw new Error('正式網站內容讀取失敗');
+            const publication = await response.json();
+            if (!publication || publication.published !== true) return;
+            const blocks = new Map((Array.isArray(publication.content_blocks) ? publication.content_blocks : []).map(item => [item.block_key, item]));
+            const block = key => blocks.get(key);
+            const mediaUrl = id => apiBase + '/media/' + encodeURIComponent(id);
+            const setLines = (element, value) => {
+                if (!element || typeof value !== 'string') return;
+                element.replaceChildren();
+                value.split('\n').forEach((line, index) => {
+                    if (index) element.append(document.createElement('br'));
+                    element.append(document.createTextNode(line));
+                });
+            };
+            const applyTextBlock = (key, section, titleSelector, bodySelector) => {
+                const item = block(key);
+                if (!item || !section) return;
+                if (Number(item.is_visible) === 0) { section.hidden = true; return; }
+                section.hidden = false;
+                const title = section.querySelector(titleSelector);
+                const body = section.querySelector(bodySelector);
+                if (title && item.title) setLines(title, item.title);
+                if (body && typeof item.body === 'string') body.textContent = item.body;
+            };
+
+            const hero = document.querySelector('.hero');
+            applyTextBlock('text_home_hero', hero, 'h1', ':scope > p');
+            const heroImage = block('home_hero');
+            if (hero && heroImage && heroImage.image_media_id && Number(heroImage.is_visible) !== 0) {
+                hero.style.backgroundImage = 'linear-gradient(rgba(25,25,22,.38), rgba(25,25,22,.38)), url("' + mediaUrl(heroImage.image_media_id) + '")';
+            }
+
+            const about = document.getElementById('about');
+            const aboutText = block('text_about');
+            if (about && aboutText) {
+                if (Number(aboutText.is_visible) === 0) about.hidden = true;
+                else {
+                    about.hidden = false;
+                    setLines(about.querySelector('.about-content h2'), aboutText.title || '');
+                    const bodyContainer = about.querySelector('.about-content');
+                    const oldParagraphs = bodyContainer ? Array.from(bodyContainer.querySelectorAll(':scope > p')) : [];
+                    const paragraphs = String(aboutText.body || '').split(/\n\s*\n/).filter(Boolean);
+                    if (bodyContainer && oldParagraphs.length) {
+                        paragraphs.forEach((text, index) => {
+                            const paragraph = index < oldParagraphs.length ? oldParagraphs[index] : document.createElement('p');
+                            paragraph.textContent = text;
+                            if (index >= oldParagraphs.length) bodyContainer.insertBefore(paragraph, bodyContainer.querySelector('.about-highlights'));
+                        });
+                        oldParagraphs.slice(paragraphs.length).forEach(paragraph => paragraph.remove());
+                    }
+                }
+            }
+            const aboutImage = block('about_image');
+            const aboutImageElement = about && about.querySelector('.about-image img');
+            if (aboutImageElement && aboutImage && aboutImage.image_media_id && Number(aboutImage.is_visible) !== 0) aboutImageElement.src = mediaUrl(aboutImage.image_media_id);
+
+            applyTextBlock('text_advantages', document.getElementById('advantages'), '.section-header h2', '.section-header p');
+            const videoPoster = block('video_poster');
+            if (videoPoster && videoPoster.image_media_id && Number(videoPoster.is_visible) !== 0) {
+                document.querySelectorAll('#public-video-gallery video').forEach(player => { player.poster = mediaUrl(videoPoster.image_media_id); });
+            }
+
+            const grid = document.querySelector('#portfolio .portfolio-grid');
+            if (grid && Array.isArray(publication.projects)) {
+                grid.replaceChildren();
+                const allowed = new Set(['客廳', '房間', '廚房']);
+                publication.projects.forEach(project => {
+                    if (!project || typeof project.id !== 'string' || typeof project.title !== 'string') return;
+                    const card = document.createElement('article');
+                    card.className = 'portfolio-card';
+                    const images = Array.isArray(project.images) ? [...project.images].sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0)) : [];
+                    const cover = images.find(image => Number(image.is_cover) === 1) || images[0];
+                    if (cover) {
+                        const mainId = 'published-main-' + project.id;
+                        const titleId = 'published-title-' + project.id;
+                        const descId = 'published-desc-' + project.id;
+                        const imageContainer = document.createElement('div');
+                        imageContainer.className = 'img-container';
+                        const mainImage = document.createElement('img');
+                        mainImage.id = mainId;
+                        mainImage.className = 'main-img';
+                        mainImage.src = mediaUrl(cover.media_id);
+                        mainImage.alt = cover.alt_text || project.title;
+                        mainImage.dataset.title = cover.alt_text || project.title;
+                        mainImage.dataset.desc = project.description || '';
+                        imageContainer.addEventListener('click', () => triggerMainModal(mainId));
+                        imageContainer.append(mainImage);
+                        const overlay = document.createElement('div');
+                        overlay.className = 'img-overlay';
+                        overlay.textContent = '🔍 點擊放大觀看細節';
+                        imageContainer.append(overlay);
+                        card.append(imageContainer);
+                        if (images.length > 1) {
+                            const thumbs = document.createElement('div');
+                            thumbs.className = 'thumb-list';
+                            images.forEach((image, index) => {
+                                const thumb = document.createElement('img');
+                                thumb.src = mediaUrl(image.media_id);
+                                thumb.alt = image.alt_text || (project.title + ' 視角 ' + (index + 1));
+                                thumb.title = '視角 ' + (index + 1);
+                                if (image.id === cover.id) thumb.classList.add('active');
+                                thumb.addEventListener('click', () => switchImage(mainId, titleId, descId, thumb, image.alt_text || project.title, project.description || ''));
+                                thumbs.append(thumb);
+                            });
+                            card.append(thumbs);
+                        }
+                        const info = document.createElement('div');
+                        info.className = 'portfolio-info';
+                        const category = document.createElement('span');
+                        category.className = 'portfolio-category';
+                        category.textContent = allowed.has(project.category) ? project.category : '空間工程';
+                        const title = document.createElement('h3');
+                        title.id = titleId;
+                        title.textContent = project.title;
+                        const description = document.createElement('p');
+                        description.id = descId;
+                        description.textContent = project.description || '';
+                        info.append(category, title, description);
+                        card.append(info);
+                    } else {
+                        const info = document.createElement('div');
+                        info.className = 'portfolio-info';
+                        const title = document.createElement('h3');
+                        title.textContent = project.title;
+                        const description = document.createElement('p');
+                        description.textContent = project.description || '';
+                        info.append(title, description);
+                        card.append(info);
+                    }
+                    grid.append(card);
+                });
+                if (publication.projects.length === 0) {
+                    const empty = document.createElement('p');
+                    empty.className = 'video-gallery-status';
+                    empty.textContent = '目前尚無公開作品，敬請期待。';
+                    grid.append(empty);
+                }
+            }
+            document.documentElement.dataset.publicationId = publication.publication_id || '';
+        }
+        loadPublishedSiteContent().catch(error => {
+            console.error('正式網站內容同步失敗，已保留原有網站畫面：', error);
+        });
+    </script>
+
+
 </body>
 </html>
