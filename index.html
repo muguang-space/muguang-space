@@ -1238,6 +1238,79 @@
             }
         }
 
+        // 從私人管理後台讀取已發布的首頁文字、首頁圖片及作品集。
+        async function loadPublicSiteContent() {
+            const apiUrl = 'https://muguang-admin.qazabc0938.workers.dev/api/public/site-content';
+            const mediaUrl = 'https://muguang-admin.qazabc0938.workers.dev/api/public/media/';
+            const allowedCategories = new Set(['客廳', '房間', '廚房']);
+            try {
+                const response = await fetch(apiUrl, { headers: { 'Accept': 'application/json' }, cache: 'no-store' });
+                if (!response.ok) throw new Error('網站內容讀取失敗');
+                const payload = await response.json();
+                if (!payload || !Array.isArray(payload.content_blocks) || !Array.isArray(payload.projects) || !Array.isArray(payload.project_images)) throw new Error('網站內容格式不正確');
+                const blocks = new Map(payload.content_blocks.filter(item => item && typeof item.block_key === 'string').map(item => [item.block_key, item]));
+                const setText = (selector, value) => { const node = document.querySelector(selector); if (node && typeof value === 'string' && value.trim()) node.textContent = value; };
+                const hero = blocks.get('text_home_hero');
+                if (hero) { setText('.hero h1', hero.title); setText('.hero > p', hero.body); }
+                const about = blocks.get('text_about');
+                if (about) {
+                    setText('.about-content h2', about.title);
+                    const paragraphs = document.querySelectorAll('.about-content > p');
+                    if (paragraphs[0] && about.body) paragraphs[0].textContent = about.body;
+                    if (paragraphs[1]) paragraphs[1].remove();
+                }
+                const advantages = blocks.get('text_advantages');
+                if (advantages) {
+                    setText('#advantages .section-header h2', advantages.title);
+                    const intro = document.querySelector('#advantages .section-header > p');
+                    if (intro && advantages.body) intro.textContent = advantages.body;
+                }
+                const heroImage = blocks.get('home_hero');
+                if (heroImage && heroImage.image_media_id) {
+                    const heroSection = document.querySelector('.hero');
+                    if (heroSection) heroSection.style.backgroundImage = `linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("${mediaUrl + encodeURIComponent(heroImage.image_media_id)}")`;
+                }
+                const aboutImage = blocks.get('about_image');
+                const aboutImg = document.querySelector('.about-image img');
+                if (aboutImage && aboutImage.image_media_id && aboutImg) aboutImg.src = mediaUrl + encodeURIComponent(aboutImage.image_media_id);
+
+                const grid = document.querySelector('#portfolio .portfolio-grid');
+                if (grid) {
+                    grid.replaceChildren();
+                    const projects = payload.projects.filter(item => item && typeof item.id === 'string' && typeof item.title === 'string' && allowedCategories.has(item.category));
+                    projects.forEach(project => {
+                        const images = payload.project_images.filter(item => item && item.project_id === project.id && typeof item.media_id === 'string').sort((a, b) => Number(a.sort_order) - Number(b.sort_order));
+                        const cover = images.find(item => Boolean(item.is_cover)) || images[0];
+                        const card = document.createElement('article'); card.className = 'portfolio-card';
+                        const imageWrap = document.createElement('div'); imageWrap.className = 'img-container';
+                        if (cover) {
+                            const main = document.createElement('img'); main.className = 'main-img'; main.src = mediaUrl + encodeURIComponent(cover.media_id); main.alt = cover.alt_text || project.title; main.loading = 'lazy';
+                            imageWrap.append(main);
+                            const thumbs = document.createElement('div'); thumbs.className = 'thumb-list';
+                            images.forEach((item, index) => {
+                                const thumb = document.createElement('img'); thumb.src = mediaUrl + encodeURIComponent(item.media_id); thumb.alt = item.alt_text || project.title + '圖片 ' + (index + 1); thumb.loading = 'lazy'; if (item.id === cover.id) thumb.classList.add('active');
+                                thumb.addEventListener('click', () => { main.src = thumb.src; main.alt = thumb.alt; thumbs.querySelectorAll('img').forEach(node => node.classList.remove('active')); thumb.classList.add('active'); });
+                                thumbs.append(thumb);
+                            });
+                            card.append(imageWrap); if (images.length > 1) card.append(thumbs);
+                        } else {
+                            const placeholder = document.createElement('div'); placeholder.className = 'preview-project-placeholder'; placeholder.textContent = '尚未設定作品圖片'; imageWrap.append(placeholder); card.append(imageWrap);
+                        }
+                        const info = document.createElement('div'); info.className = 'portfolio-info';
+                        const category = document.createElement('span'); category.className = 'portfolio-category'; category.textContent = project.category;
+                        const title = document.createElement('h3'); title.textContent = project.title;
+                        const description = document.createElement('p'); description.textContent = typeof project.description === 'string' ? project.description : '';
+                        info.append(category, title); if (description.textContent) info.append(description); card.append(info); grid.append(card);
+                    });
+                    if (!projects.length) { const empty = document.createElement('p'); empty.className = 'video-gallery-status'; empty.textContent = '目前尚無公開作品，敬請期待。'; grid.append(empty); }
+                }
+            } catch (error) {
+                console.error('公開網站內容載入失敗：', error);
+                // Keep the existing static page as a graceful fallback if the content API is unavailable.
+            }
+        }
+
+        loadPublicSiteContent();
         loadPublicVideos();
 
         // 切換作品縮圖
