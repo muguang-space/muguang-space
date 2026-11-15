@@ -1152,6 +1152,8 @@
             });
         }
 
+        let managedVideoPosterUrl = '';
+
         // 從私人管理後台讀取已上架影片；網站只讀取公開 API，不接觸管理員登入資料。
         async function loadPublicVideos() {
             const gallery = document.getElementById('public-video-gallery');
@@ -1199,7 +1201,7 @@
                     player.preload = 'metadata';
                     player.playsInline = true;
                     player.setAttribute('aria-label', video.title.trim());
-                    player.poster = 'index.files/image006.jpg';
+                    player.poster = managedVideoPosterUrl || 'index.files/image006.jpg';
                     player.src = videoFileUrl + encodeURIComponent(video.id) + '/file';
 
                     const info = document.createElement('div');
@@ -1270,6 +1272,8 @@
                     const heroSection = document.querySelector('.hero');
                     if (heroSection) heroSection.style.backgroundImage = `linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("${mediaUrl + encodeURIComponent(heroImage.image_media_id)}")`;
                 }
+                const videoPoster = blocks.get('video_poster');
+                if (videoPoster && videoPoster.image_media_id) managedVideoPosterUrl = mediaUrl + encodeURIComponent(videoPoster.image_media_id);
                 const aboutImage = blocks.get('about_image');
                 const aboutImg = document.querySelector('.about-image img');
                 if (aboutImage && aboutImage.image_media_id && aboutImg) aboutImg.src = mediaUrl + encodeURIComponent(aboutImage.image_media_id);
@@ -1311,8 +1315,7 @@
             }
         }
 
-        loadPublicSiteContent();
-        loadPublicVideos();
+        loadPublicSiteContent().finally(loadPublicVideos);
 
         // 切換作品縮圖
         function switchImage(mainImgId, titleId, descId, thumbEl, newTitle, newDesc) {
