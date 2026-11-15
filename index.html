@@ -1325,7 +1325,8 @@
         // snapshot to a read-only Worker API; only that snapshot is rendered here.
         async function loadPublishedSiteContent() {
             const apiBase = 'https://muguang-admin.qazabc0938.workers.dev/api/public';
-            const response = await fetch(apiBase + '/site', {
+            const siteApiUrl = 'https://muguang-admin.qazabc0938.workers.dev/api/public/site';
+            const response = await fetch(siteApiUrl, {
                 method: 'GET', headers: { 'Accept': 'application/json' }, cache: 'no-store'
             });
             if (!response.ok) throw new Error('正式網站內容讀取失敗');
