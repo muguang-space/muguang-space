@@ -1277,19 +1277,20 @@
                 const grid = document.querySelector('#portfolio .portfolio-grid');
                 if (grid) {
                     grid.replaceChildren();
-                    const projects = payload.projects.filter(item => item && typeof item.id === 'string' && typeof item.title === 'string' && allowedCategories.has(item.category));
+                    const projects = payload.projects.filter(item => item && typeof item.id === 'string' && /^[a-f0-9-]{20,}$/i.test(item.id) && typeof item.title === 'string' && allowedCategories.has(item.category));
                     projects.forEach(project => {
                         const images = payload.project_images.filter(item => item && item.project_id === project.id && typeof item.media_id === 'string').sort((a, b) => Number(a.sort_order) - Number(b.sort_order));
                         const cover = images.find(item => Boolean(item.is_cover)) || images[0];
                         const card = document.createElement('article'); card.className = 'portfolio-card';
                         const imageWrap = document.createElement('div'); imageWrap.className = 'img-container';
                         if (cover) {
-                            const main = document.createElement('img'); main.className = 'main-img'; main.src = mediaUrl + encodeURIComponent(cover.media_id); main.alt = cover.alt_text || project.title; main.loading = 'lazy';
+                            const main = document.createElement('img'); main.className = 'main-img'; main.id = 'managed-project-image-' + project.id; main.src = mediaUrl + encodeURIComponent(cover.media_id); main.alt = cover.alt_text || project.title; main.dataset.title = project.title; main.dataset.desc = typeof project.description === 'string' ? project.description : ''; main.loading = 'lazy';
+                            imageWrap.addEventListener('click', () => openModal(main.src, main.dataset.title || '', main.dataset.desc || ''));
                             imageWrap.append(main);
                             const thumbs = document.createElement('div'); thumbs.className = 'thumb-list';
                             images.forEach((item, index) => {
                                 const thumb = document.createElement('img'); thumb.src = mediaUrl + encodeURIComponent(item.media_id); thumb.alt = item.alt_text || project.title + '圖片 ' + (index + 1); thumb.loading = 'lazy'; if (item.id === cover.id) thumb.classList.add('active');
-                                thumb.addEventListener('click', () => { main.src = thumb.src; main.alt = thumb.alt; thumbs.querySelectorAll('img').forEach(node => node.classList.remove('active')); thumb.classList.add('active'); });
+                                thumb.addEventListener('click', () => { main.src = thumb.src; main.alt = thumb.alt; main.dataset.title = thumb.alt; thumbs.querySelectorAll('img').forEach(node => node.classList.remove('active')); thumb.classList.add('active'); });
                                 thumbs.append(thumb);
                             });
                             card.append(imageWrap); if (images.length > 1) card.append(thumbs);
