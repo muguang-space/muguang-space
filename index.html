@@ -321,6 +321,7 @@
         .video-card-player {
             width: 100%;
             aspect-ratio: 16 / 9;
+            max-height: 560px;
             display: block;
             background: #171513;
             object-fit: contain;
@@ -1202,6 +1203,11 @@
                     player.poster = video.id === '25dc0341-a612-4067-a44f-1af1d0a81ee1'
                         ? 'videos/25dc0341-a612-4067-a44f-1af1d0a81ee1-poster.jpg'
                         : 'index.files/image006.jpg';
+                    player.addEventListener('loadedmetadata', () => {
+                        if (player.videoWidth > 0 && player.videoHeight > 0) {
+                            player.style.aspectRatio = `${player.videoWidth} / ${player.videoHeight}`;
+                        }
+                    }, { once: true });
                     player.src = videoFileUrl + encodeURIComponent(video.id) + '/file';
 
                     const info = document.createElement('div');
