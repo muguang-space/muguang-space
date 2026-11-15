@@ -1,0 +1,41 @@
+name: Validate public website scripts
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "index.html"
+      - ".github/workflows/site-check.yml"
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - ".github/workflows/site-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-inline-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout website
+        uses: actions/checkout@v4
+      - name: Validate inline JavaScript syntax and publication integration
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          import { spawnSync } from 'node:child_process';
+          const html = readFileSync('index.html', 'utf8');
+          const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(match => match[1]).filter(source => source.trim());
+          if (!scripts.length) throw new Error('No inline scripts found.');
+          for (let index = 0; index < scripts.length; index += 1) {
+            const result = spawnSync(process.execPath, ['--check'], { input: scripts[index], encoding: 'utf8' });
+            if (result.status !== 0) throw new Error('Inline script ' + (index + 1) + ' failed syntax check: ' + result.stderr);
+          }
+          if (!html.includes('/api/public/site') || !html.includes("'/media/'")) {
+            throw new Error('The GitHub Pages content sync endpoints are missing.');
+          }
+          console.log('Validated ' + scripts.length + ' inline scripts and the public content endpoints.');
+          NODE
