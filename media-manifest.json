@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "generated_from": "公開網站 GitHub Pages 靜態素材盤點",
+  "images": [
+    {
+      "path": "images/hero-bg.jpg",
+      "file_name": "hero-bg.jpg",
+      "folder": "首頁",
+      "mime_type": "image/jpeg",
+      "file_size": 463905
+    },
+    {
+      "path": "images/extra-living-kitchen.jpg",
+      "file_name": "extra-living-kitchen.jpg",
+      "folder": "客廳",
+      "mime_type": "image/jpeg",
+      "file_size": 108200
+    },
+    {
+      "path": "index.files/image002.jpg",
+      "file_name": "image002.jpg",
+      "folder": "廚房",
+      "mime_type": "image/jpeg",
+      "file_size": 153573
+    },
+    {
+      "path": "index.files/image003.jpg",
+      "file_name": "image003.jpg",
+      "folder": "廚房",
+      "mime_type": "image/jpeg",
+      "file_size": 270389
+    },
+    {
+      "path": "index.files/image004.jpg",
+      "file_name": "image004.jpg",
+      "folder": "客廳",
+      "mime_type": "image/jpeg",
+      "file_size": 143184
+    },
+    {
+      "path": "index.files/image005.jpg",
+      "file_name": "image005.jpg",
+      "folder": "客廳",
+      "mime_type": "image/jpeg",
+      "file_size": 24161
+    },
+    {
+      "path": "index.files/image006.jpg",
+      "file_name": "image006.jpg",
+      "folder": "客廳",
+      "mime_type": "image/jpeg",
+      "file_size": 300979
+    },
+    {
+      "path": "index.files/image007.jpg",
+      "file_name": "image007.jpg",
+      "folder": "廚房",
+      "mime_type": "image/jpeg",
+      "file_size": 38036
+    },
+    {
+      "path": "index.files/image008.jpg",
+      "file_name": "image008.jpg",
+      "folder": "客廳",
+      "mime_type": "image/jpeg",
+      "file_size": 241686
+    },
+    {
+      "path": "index.files/image009.jpg",
+      "file_name": "image009.jpg",
+      "folder": "廚房",
+      "mime_type": "image/jpeg",
+      "file_size": 34333
+    },
+    {
+      "path": "index.files/image011.jpg",
+      "file_name": "image011.jpg",
+      "folder": "廚房",
+      "mime_type": "image/jpeg",
+      "file_size": 35953
+    },
+    {
+      "path": "images/bedroom-01.jpg",
+      "file_name": "bedroom-01.jpg",
+      "folder": "房間",
+      "mime_type": "image/jpeg",
+      "file_size": 1075953
+    },
+    {
+      "path": "images/bedroom-02.jpg",
+      "file_name": "bedroom-02.jpg",
+      "folder": "房間",
+      "mime_type": "image/jpeg",
+      "file_size": 446633
+    },
+    {
+      "path": "images/bedroom-03.jpg",
+      "file_name": "bedroom-03.jpg",
+      "folder": "房間",
+      "mime_type": "image/jpeg",
+      "file_size": 100176
+    },
+    {
+      "path": "images/bedroom-04.jpg",
+      "file_name": "bedroom-04.jpg",
+      "folder": "房間",
+      "mime_type": "image/jpeg",
+      "file_size": 29923
+    },
+    {
+      "path": "videos/25dc0341-a612-4067-a44f-1af1d0a81ee1-poster.jpg",
+      "file_name": "影片導覽封面.jpg",
+      "folder": "首頁",
+      "mime_type": "image/jpeg",
+      "file_size": 42259
+    },
+    {
+      "path": "index.files/S__1202454594_0.jpg",
+      "file_name": "S__1202454594_0.jpg",
+      "folder": "未分類",
+      "mime_type": "image/jpeg",
+      "file_size": 270357
+    },
+    {
+      "path": "index.files/S__1202454595_0.jpg",
+      "file_name": "S__1202454595_0.jpg",
+      "folder": "未分類",
+      "mime_type": "image/jpeg",
+      "file_size": 221677
+    },
+    {
+      "path": "index.files/S__1202454596_0.jpg",
+      "file_name": "S__1202454596_0.jpg",
+      "folder": "未分類",
+      "mime_type": "image/jpeg",
+      "file_size": 253164
+    },
+    {
+      "path": "index.files/S__1202454597_0.jpg",
+      "file_name": "S__1202454597_0.jpg",
+      "folder": "未分類",
+      "mime_type": "image/jpeg",
+      "file_size": 290588
+    },
+    {
+      "path": "index.files/S__1202454598_0.jpg",
+      "file_name": "S__1202454598_0.jpg",
+      "folder": "未分類",
+      "mime_type": "image/jpeg",
+      "file_size": 300947
+    }
+  ],
+  "videos": [
+    {
+      "path": "videos/video-01.mp4",
+      "file_name": "video-01.mp4",
+      "mime_type": "video/mp4",
+      "file_size": 2878097,
+      "title": "原有公開網站影片",
+      "description": "",
+      "category": "廚房"
+    }
+  ]
+}
