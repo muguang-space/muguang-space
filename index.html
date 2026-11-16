@@ -1302,6 +1302,7 @@
 
                 const thumbnailButtons = [];
                 const selectVideo = (video, selectedButton) => {
+                    status.hidden = true;
                     player.pause();
                     player.removeAttribute('src');
                     player.load();
