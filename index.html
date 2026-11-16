@@ -1393,7 +1393,7 @@
 
             const grid = document.querySelector('#portfolio .portfolio-grid');
             if (grid && Array.isArray(publication.projects) && publication.projects.length > 0) {
-                grid.replaceChildren();
+                // Keep the original public-site portfolio cards; append projects published from admin.
                 const allowed = new Set(['客廳', '房間', '廚房']);
                 publication.projects.forEach(project => {
                     if (!project || typeof project.id !== 'string' || typeof project.title !== 'string') return;
