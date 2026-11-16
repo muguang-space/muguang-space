@@ -1,0 +1,54 @@
+name: Verify Cloudflare public media
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "index.html"
+      - ".github/workflows/verify-cloud-media.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-public-media:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check all public image source endpoints
+        run: |
+          node --input-type=module <<'NODE'
+          const base = 'https://muguang-admin.qazabc0938.workers.dev/api/public/media/source?path=';
+          const paths = [
+            'images/hero-bg.jpg',
+            'images/extra-living-kitchen.jpg',
+            'index.files/image009.jpg',
+            'index.files/image011.jpg',
+            'index.files/image002.jpg',
+            'index.files/image007.jpg',
+            'index.files/image003.jpg',
+            'index.files/image004.jpg',
+            'index.files/image005.jpg',
+            'index.files/image006.jpg',
+            'index.files/image008.jpg',
+            'images/bedroom-01.jpg',
+            'images/bedroom-02.jpg',
+            'images/bedroom-03.jpg',
+            'images/bedroom-04.jpg',
+            'videos/25dc0341-a612-4067-a44f-1af1d0a81ee1-poster.jpg'
+          ];
+          const failures = [];
+          for (const path of paths) {
+            const response = await fetch(base + encodeURIComponent(path), { method: 'HEAD' });
+            const type = response.headers.get('content-type') || '';
+            const size = Number(response.headers.get('content-length') || 0);
+            if (!response.ok || !type.startsWith('image/') || size <= 0) {
+              failures.push(`${path}: HTTP ${response.status}, type=${type || 'missing'}, size=${size}`);
+            } else {
+              console.log(`OK ${path} (${type}, ${size} bytes)`);
+            }
+          }
+          if (failures.length) {
+            console.error('Cloudflare media verification failed:\n' + failures.join('\n'));
+            process.exit(1);
+          }
+          console.log(`Verified all ${paths.length} public image endpoints.`);
+          NODE
