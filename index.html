@@ -302,32 +302,25 @@
         }
 
         .video-gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-            gap: 26px;
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
         }
-
-        .video-card {
-            min-width: 0;
+        .video-showcase-card {
             overflow: hidden;
             background: var(--white);
             border: 1px solid rgba(0,0,0,.06);
             border-radius: 16px;
             box-shadow: var(--card-shadow);
         }
-
         .video-card-player {
+            display: block;
             width: 100%;
             aspect-ratio: 16 / 9;
             max-height: 560px;
-            display: block;
             background: #171513;
             object-fit: contain;
         }
-
-        .video-card-info { padding: 20px 22px 22px; }
+        .video-card-info { min-height: 132px; padding: 20px 22px 22px; }
         .video-card-category {
             display: inline-block;
             margin-bottom: 8px;
@@ -349,6 +342,73 @@
             white-space: pre-line;
             overflow-wrap: anywhere;
         }
+        .video-picker {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .video-picker-track {
+            display: flex;
+            flex: 1;
+            min-width: 0;
+            gap: 12px;
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            padding: 5px 2px 12px;
+            scroll-snap-type: x mandatory;
+        }
+        .video-thumb {
+            position: relative;
+            flex: 0 0 148px;
+            width: 148px;
+            padding: 0;
+            overflow: hidden;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            background: var(--white);
+            color: var(--text-dark);
+            text-align: left;
+            cursor: pointer;
+            scroll-snap-align: start;
+            box-shadow: 0 2px 9px rgba(0,0,0,.08);
+        }
+        .video-thumb[aria-pressed="true"] {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(163,130,100,.18);
+        }
+        .video-thumb img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #e9e3de;
+        }
+        .video-thumb span {
+            display: block;
+            padding: 7px 9px 9px;
+            font-size: .82rem;
+            line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .video-picker-arrow {
+            flex: 0 0 38px;
+            width: 38px;
+            height: 38px;
+            border: 1px solid #D8D0C9;
+            border-radius: 50%;
+            background: var(--white);
+            color: var(--primary-color);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+        .video-picker-arrow:disabled { opacity: .35; cursor: default; }
+        .video-picker-arrow:focus-visible,
+        .video-thumb:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 2px; }
         .video-gallery-status {
             max-width: 760px;
             margin: 0 auto;
@@ -361,8 +421,10 @@
         }
         .video-gallery-status[hidden] { display: none !important; }
         @media (max-width: 768px) {
-            .video-gallery-grid { grid-template-columns: 1fr; gap: 18px; }
-            .video-card-info { padding: 18px; }
+            .video-card-info { min-height: 120px; padding: 18px; }
+            .video-thumb { flex-basis: 124px; width: 124px; }
+            .video-picker { gap: 6px; }
+            .video-picker-arrow { flex-basis: 32px; width: 32px; height: 32px; }
         }
 
         .portfolio-grid {
@@ -1153,14 +1215,15 @@
             });
         }
 
-        // 從私人管理後台讀取已上架影片；網站只讀取公開 API，不接觸管理員登入資料。
+        // 從私人管理後台讀取已上架影片；公開頁只保留一個主播放器，縮圖橫向切換。
         async function loadPublicVideos() {
             const gallery = document.getElementById('public-video-gallery');
             const status = document.getElementById('public-video-status');
             if (!gallery || !status) return;
 
             const apiUrl = 'https://muguang-admin.qazabc0938.workers.dev/api/public/videos';
-            const videoFileUrl = 'https://muguang-admin.qazabc0938.workers.dev/api/public/videos/';
+            const apiBase = 'https://muguang-admin.qazabc0938.workers.dev/api/public/videos/';
+            const fallbackPoster = 'https://muguang-admin.qazabc0938.workers.dev/api/public/media/source?path=index.files%2Fimage006.jpg';
             const allowedCategories = new Set(['客廳', '房間', '廚房']);
 
             try {
@@ -1190,53 +1253,113 @@
                     return;
                 }
 
-                validVideos.forEach(video => {
-                    const card = document.createElement('article');
-                    card.className = 'video-card';
+                const card = document.createElement('article');
+                card.className = 'video-showcase-card';
+                const player = document.createElement('video');
+                player.className = 'video-card-player';
+                player.controls = true;
+                player.preload = 'metadata';
+                player.playsInline = true;
+                player.setAttribute('aria-label', '目前播放影片');
 
-                    const player = document.createElement('video');
-                    player.className = 'video-card-player';
-                    player.controls = true;
-                    player.preload = 'metadata';
-                    player.playsInline = true;
+                const info = document.createElement('div');
+                info.className = 'video-card-info';
+                const category = document.createElement('span');
+                category.className = 'video-card-category';
+                const title = document.createElement('h3');
+                const description = document.createElement('p');
+                info.append(category, title, description);
+                card.append(player, info);
+
+                const picker = document.createElement('div');
+                picker.className = 'video-picker';
+                picker.setAttribute('aria-label', '選擇影片');
+                const previous = document.createElement('button');
+                previous.type = 'button';
+                previous.className = 'video-picker-arrow';
+                previous.textContent = '‹';
+                previous.setAttribute('aria-label', '向左瀏覽影片');
+                const track = document.createElement('div');
+                track.className = 'video-picker-track';
+                track.setAttribute('role', 'group');
+                track.setAttribute('aria-label', '影片封面縮圖');
+                const next = document.createElement('button');
+                next.type = 'button';
+                next.className = 'video-picker-arrow';
+                next.textContent = '›';
+                next.setAttribute('aria-label', '向右瀏覽影片');
+                picker.append(previous, track, next);
+
+                const posterFor = video => {
+                    if (typeof video.cover_media_id === 'string' && /^[a-f0-9-]{36}$/i.test(video.cover_media_id)) {
+                        return apiBase + encodeURIComponent(video.id) + '/cover';
+                    }
+                    if (video.id === '25dc0341-a612-4067-a44f-1af1d0a81ee1') {
+                        return 'https://muguang-admin.qazabc0938.workers.dev/api/public/media/source?path=videos%2F25dc0341-a612-4067-a44f-1af1d0a81ee1-poster.jpg';
+                    }
+                    return fallbackPoster;
+                };
+
+                const thumbnailButtons = [];
+                const selectVideo = (video, selectedButton) => {
+                    player.pause();
+                    player.removeAttribute('src');
+                    player.load();
+                    player.src = apiBase + encodeURIComponent(video.id) + '/file';
+                    player.poster = posterFor(video);
                     player.setAttribute('aria-label', video.title.trim());
-                    player.poster = typeof video.cover_media_id === 'string' && /^[a-f0-9-]{36}$/i.test(video.cover_media_id)
-                        ? 'https://muguang-admin.qazabc0938.workers.dev/api/public/videos/' + encodeURIComponent(video.id) + '/cover'
-                        : (video.id === '25dc0341-a612-4067-a44f-1af1d0a81ee1'
-                            ? 'https://muguang-admin.qazabc0938.workers.dev/api/public/media/source?path=videos%2F25dc0341-a612-4067-a44f-1af1d0a81ee1-poster.jpg'
-                            : 'https://muguang-admin.qazabc0938.workers.dev/api/public/media/source?path=index.files%2Fimage006.jpg');
-                    player.addEventListener('loadedmetadata', () => {
-                        if (player.videoWidth > 0 && player.videoHeight > 0) {
-                            player.style.aspectRatio = `${player.videoWidth} / ${player.videoHeight}`;
-                        }
-                    }, { once: true });
-                    player.src = videoFileUrl + encodeURIComponent(video.id) + '/file';
-
-                    const info = document.createElement('div');
-                    info.className = 'video-card-info';
-
-                    const category = document.createElement('span');
-                    category.className = 'video-card-category';
                     category.textContent = allowedCategories.has(video.category) ? video.category : '工程實況';
-
-                    const title = document.createElement('h3');
                     title.textContent = video.title.trim();
-
-                    const description = document.createElement('p');
                     description.textContent = typeof video.description === 'string' ? video.description : '';
+                    description.hidden = !description.textContent;
+                    thumbnailButtons.forEach(button => {
+                        const selected = button === selectedButton;
+                        button.setAttribute('aria-pressed', String(selected));
+                    });
+                    if (selectedButton) selectedButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+                };
 
-                    player.addEventListener('error', () => {
-                        const unavailable = document.createElement('p');
-                        unavailable.className = 'video-gallery-status';
-                        unavailable.textContent = '此影片目前無法播放，請稍後再試。';
-                        player.replaceWith(unavailable);
-                    }, { once: true });
-
-                    info.append(category, title);
-                    if (description.textContent) info.append(description);
-                    card.append(player, info);
-                    gallery.append(card);
+                validVideos.forEach((video, index) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'video-thumb';
+                    button.setAttribute('aria-pressed', 'false');
+                    button.setAttribute('aria-label', '播放影片：' + video.title.trim());
+                    const image = document.createElement('img');
+                    image.src = posterFor(video);
+                    image.alt = '';
+                    image.loading = index === 0 ? 'eager' : 'lazy';
+                    image.onerror = () => { image.src = fallbackPoster; };
+                    const label = document.createElement('span');
+                    label.textContent = video.title.trim();
+                    button.append(image, label);
+                    button.addEventListener('click', () => selectVideo(video, button));
+                    track.append(button);
+                    thumbnailButtons.push(button);
                 });
+
+                previous.addEventListener('click', () => track.scrollBy({ left: -track.clientWidth * .8, behavior: 'smooth' }));
+                next.addEventListener('click', () => track.scrollBy({ left: track.clientWidth * .8, behavior: 'smooth' }));
+                const updateArrowState = () => {
+                    const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+                    previous.disabled = track.scrollLeft <= 2;
+                    next.disabled = track.scrollLeft >= maxScroll - 2;
+                    const canScroll = maxScroll > 2;
+                    previous.hidden = !canScroll;
+                    next.hidden = !canScroll;
+                };
+                track.addEventListener('scroll', updateArrowState, { passive: true });
+                if (typeof ResizeObserver !== 'undefined') {
+                    new ResizeObserver(updateArrowState).observe(track);
+                }
+
+                player.addEventListener('error', () => {
+                    status.textContent = '此影片目前無法播放，請稍後再試。';
+                    status.hidden = false;
+                });
+                gallery.append(card, picker);
+                selectVideo(validVideos[0], thumbnailButtons[0]);
+                requestAnimationFrame(updateArrowState);
 
                 status.hidden = true;
                 gallery.setAttribute('aria-busy', 'false');
