@@ -1301,7 +1301,7 @@
                 };
 
                 const thumbnailButtons = [];
-                const selectVideo = (video, selectedButton) => {
+                const selectVideo = (video, selectedButton, autoPlay = false) => {
                     status.hidden = true;
                     player.pause();
                     player.removeAttribute('src');
@@ -1317,14 +1317,16 @@
                         const selected = button === selectedButton;
                         button.setAttribute('aria-pressed', String(selected));
                     });
-                    // 縮圖點擊是使用者手勢：切換主播放器後自動開始播放，並將播放器帶入視野。
-                    player.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    const playRequest = player.play();
-                    if (playRequest && typeof playRequest.catch === 'function') {
-                        playRequest.catch(() => {
-                            status.textContent = '影片已切換，請按播放器上的播放鍵開始觀看。';
-                            status.hidden = false;
-                        });
+                    // 只有訪客主動點擊縮圖時才自動播放；初次載入只顯示第一支影片。
+                    if (autoPlay) {
+                        player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        const playRequest = player.play();
+                        if (playRequest && typeof playRequest.catch === 'function') {
+                            playRequest.catch(() => {
+                                status.textContent = '影片已切換，請按播放器上的播放鍵開始觀看。';
+                                status.hidden = false;
+                            });
+                        }
                     }
                 };
 
@@ -1342,7 +1344,7 @@
                     const label = document.createElement('span');
                     label.textContent = video.title.trim();
                     button.append(image, label);
-                    button.addEventListener('click', () => selectVideo(video, button));
+                    button.addEventListener('click', () => selectVideo(video, button, true));
                     track.append(button);
                     thumbnailButtons.push(button);
                 });
