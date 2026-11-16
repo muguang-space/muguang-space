@@ -1430,7 +1430,10 @@
                                 thumb.alt = image.alt_text || (project.title + ' 視角 ' + (index + 1));
                                 thumb.title = '視角 ' + (index + 1);
                                 if (image.id === cover.id) thumb.classList.add('active');
-                                thumb.addEventListener('click', () => switchImage(mainId, titleId, descId, thumb, image.alt_text || project.title, project.description || ''));
+                                thumb.addEventListener('click', (event) => {
+                                    event.stopPropagation();
+                                    switchImage(mainId, titleId, descId, thumb, image.alt_text || project.title, project.description || '');
+                                });
                                 thumbs.append(thumb);
                             });
                             card.append(thumbs);
