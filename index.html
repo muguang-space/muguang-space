@@ -796,7 +796,7 @@
         <div class="portfolio-grid">
 
             <!-- 1. 單獨廚房 -->
-            <div class="portfolio-card">
+            <div class="portfolio-card" data-portfolio-slot="kitchen-independent">
 
                 <div class="img-container" onclick="triggerMainModal('kit-main-img')">
                     <img id="kit-main-img"
@@ -829,7 +829,7 @@
             </div>
 
             <!-- 2. 中島廚房與開放式餐廚客廳 -->
-            <div class="portfolio-card">
+            <div class="portfolio-card" data-portfolio-slot="kitchen-open">
 
                 <div class="img-container" onclick="triggerMainModal('openkit-main-img')">
                     <img id="openkit-main-img"
@@ -867,7 +867,7 @@
 
 
 <!-- 3. 大理石紋電視牆與多功能收納 -->
-<div class="portfolio-card">
+<div class="portfolio-card" data-portfolio-slot="living-tv">
 
     <div class="img-container" onclick="triggerMainModal('tv-main-img')">
         <img id="tv-main-img"
@@ -923,7 +923,7 @@
 
 
             <!-- 4. 主臥室房型 A -->
-            <div class="portfolio-card">
+            <div class="portfolio-card" data-portfolio-slot="bedroom-a">
 
                 <div class="img-container" onclick="triggerMainModal('bed1-main-img')">
                     <img id="bed1-main-img"
@@ -956,7 +956,7 @@
             </div>
 
             <!-- 5. 主臥室房型 B -->
-            <div class="portfolio-card">
+            <div class="portfolio-card" data-portfolio-slot="bedroom-b">
 
                 <div class="img-container" onclick="triggerMainModal('bed2-main-img')">
                     <img id="bed2-main-img"
@@ -1397,11 +1397,37 @@
             if (grid && Array.isArray(publication.projects) && publication.projects.length > 0) {
                 // Keep the original public-site portfolio cards; append projects published from admin.
                 const allowed = new Set(['客廳', '房間', '廚房']);
+                const slotTargets = {
+                    'kitchen-independent': { main: 'kit-main-img', title: 'openkit-title-1', desc: 'openkit-desc-1' },
+                    'kitchen-open': { main: 'openkit-main-img', title: 'openkit-title-2', desc: 'openkit-desc-2' },
+                    'living-tv': { main: 'tv-main-img', title: 'openkit-title-3', desc: 'openkit-desc-3' },
+                    'bedroom-a': { main: 'bed1-main-img', title: 'openkit-title-4', desc: 'openkit-desc-4' },
+                    'bedroom-b': { main: 'bed2-main-img', title: 'openkit-title-5', desc: 'openkit-desc-5' }
+                };
                 publication.projects.forEach(project => {
                     if (!project || typeof project.id !== 'string' || typeof project.title !== 'string') return;
+                    const images = Array.isArray(project.images) ? [...project.images].sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0)) : [];
+                    const slotTarget = project.portfolio_slot ? slotTargets[project.portfolio_slot] : null;
+                    if (slotTarget && images.length) {
+                        const targetCard = grid.querySelector('[data-portfolio-slot="' + project.portfolio_slot + '"]');
+                        const targetThumbs = targetCard && targetCard.querySelector('.thumb-list');
+                        if (targetThumbs) {
+                            images.forEach(image => {
+                                const thumb = document.createElement('img');
+                                thumb.src = mediaUrl(image.media_id);
+                                thumb.alt = project.title;
+                                thumb.title = project.title;
+                                thumb.addEventListener('click', event => {
+                                    event.stopPropagation();
+                                    switchImage(slotTarget.main, slotTarget.title, slotTarget.desc, thumb, project.title, project.description || '');
+                                });
+                                targetThumbs.append(thumb);
+                            });
+                            return;
+                        }
+                    }
                     const card = document.createElement('article');
                     card.className = 'portfolio-card';
-                    const images = Array.isArray(project.images) ? [...project.images].sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0)) : [];
                     const cover = images.find(image => Number(image.is_cover) === 1) || images[0];
                     if (cover) {
                         const mainId = 'published-main-' + project.id;
