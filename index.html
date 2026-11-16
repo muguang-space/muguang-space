@@ -1317,7 +1317,15 @@
                         const selected = button === selectedButton;
                         button.setAttribute('aria-pressed', String(selected));
                     });
-                    if (selectedButton) selectedButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+                    // 縮圖點擊是使用者手勢：切換主播放器後自動開始播放，並將播放器帶入視野。
+                    player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const playRequest = player.play();
+                    if (playRequest && typeof playRequest.catch === 'function') {
+                        playRequest.catch(() => {
+                            status.textContent = '影片已切換，請按播放器上的播放鍵開始觀看。';
+                            status.hidden = false;
+                        });
+                    }
                 };
 
                 validVideos.forEach((video, index) => {
